@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+    <link rel="shortcut icon" href="{{ url_for('static', filename='images/haidilao_logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/general_style_setting.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static',filename = 'css/website_style.css') }}">
+    {% block title %}
+    {% endblock %}
+</head>
+<body id="body">
+    <div class = "top_logo">
+        <a href="{{ url_for('home') }}">
+            <img src="{{ url_for('static',filename = 'images/haidilao_logo.png') }}" class="top_logo_image">
+        </a>
+    </div>
+    <div class = "top_panel">
+        <div class = "top_panel_buttons">
+            <form action="/my_account" method="get">
+                <input type="submit" value="{{translate_data['my_account'][language]}}"/>
+            </form>
+            <form action="/manage" method="get">
+                <input type="submit" value="{{translate_data['manage'][language]}}"/>
+            </form>
+            <form action="/work_schedule" method="get">
+                <input type="submit" value="{{translate_data['Work_Schedule'][language]}}"/>
+            </form>
+            {% if session.get("user") %}
+                <form action="/logout" method="get">
+                    <input type="submit" value="{{translate_data['logout'][language]}}"/>
+                </form>
+            {% else %}
+                <form action="/login" method="get">
+                    <input type="submit" value="{{translate_data['login'][language]}}"/>
+                </form>
+            {% endif %}
+
+    </div>
+    </div>
+        <div class = "top_panel">
+            <div class = "top_panel_buttons">
+            <form action="/language" method="post" class="language_change">
+                <button type="submit" class="second_top_panel_button">
+                    <img class="image_scale_down" src="{{url_for('static', filename='/images/translate_icon.png')}}">
+                </button>
+            </form>
+            <form action="/secret_letters" method="get">
+                <button type="submit" class="second_top_panel_button">
+                    <img class="image_scale_down" src="{{url_for('static', filename='/images/mailBox.png')}}">
+                </button>
+            </form>
+        </div>
+    </div>
+    {% if error %}
+        <div class="error center_content">{{translate_data[error][language]}}</div>
+    {% endif %}
+    {% if success_info %}
+        <div class="success_info center_content">{{translate_data[success_info][language]}}</div>
+    {% endif %}
+    {% block body %}
+    {% endblock %}
+
+    <footer class = "bot_panel"></footer>
+</body>
+</html>

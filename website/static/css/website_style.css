@@ -1,0 +1,293 @@
+
+.top_panel{
+    display: flex;
+    width:100%;
+    height:5em;
+    background-color:cornflowerblue;
+    justify-items:center;
+    justify-content:center;
+    align-content:center;
+}
+.top_logo {
+    display: flex;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.top_logo_image{
+    height:7em;
+}
+.home_image_wrapper{
+
+}
+
+.home_page_image {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin-bottom:1em;
+    margin-top:1em;
+}
+.login_wrapper{
+    display:grid;
+    border:solid gray;
+    padding:1em;
+    max-width:500px;
+    justify-content:center;
+    justify-self:center;
+    align-self:center;
+    grid-template-columns: 1fr 4fr;
+}
+.login_wrapper *{
+    margin-bottom: 1em;
+    margin-top:1em;
+}
+.my_account_information_wrapper{
+    display:grid;
+    border:solid gray;
+    max-width:500px;
+    text-align:center;
+    align-self:center;
+    justify-self:center;
+    margin-top:1em;
+    margin-bottom:1em;
+    padding:1em;
+}
+.bot_panel {
+    display: flex;
+    bottom: 0px;
+    width: 100%;
+    height: 5em;
+    background-color: cornflowerblue;
+    justify-items: center;
+    justify-content: center;
+    align-content: center;
+}
+.top_panel_buttons {
+    position: relative;
+    display: flex;
+    width: 95%;
+    height: 100%;
+    justify-self: center;
+    align-content: center;
+    justify-content: space-between;
+}
+    .top_panel_buttons form {
+        display: inline-block;
+        font-family: system-ui;
+        background-color: white;
+        border: solid thick gray;
+        height: 75%;
+        width: 100%;
+        border-radius: 5%;
+        text-align: center;
+    }
+    .top_panel_buttons form input {
+        font-size:2vw;
+        height: 100%;
+        width: 100%;
+    }
+.error{
+    background: red;
+}
+.success_info {
+    background: lightgreen;
+}
+.secret_letter_box {
+    top: 0em;
+    right: 0em;
+    display: flex;
+    position: absolute;
+    width: auto;
+    height: 6em;
+    background: white;
+    border: solid 0.5em;
+}
+.image_scale_down {
+    width: 100%;
+    height: 100%;
+    object-fit: scale-down;
+}
+.daily_server_groups {
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(max-content, 1fr));
+    justify-content:center;
+    
+}
+.server_group {
+    max-width: 600px;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    display: flex;
+    width: 95%;
+    flex-wrap: wrap;
+    flex-basis: 100%;
+    border: solid black;
+    justify-items: center;
+    align-content: center;
+    justify-content: center;
+    justify-self: center;
+    align-content: center;
+    text-align: center
+}
+    .server_group * {
+        justify-content: center;
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+        .server_group * * {
+            justify-content: center;
+            width: 80%;
+            height: 50%;
+            font-size: 100%;
+        }
+.one_item_in_line {
+    justify-content: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: solid gray;
+}
+.two_items_in_line {
+    justify-content: center;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 4fr 1fr 1fr;
+    border: solid gray;
+    
+}
+.translate_change_icon {
+    top: 0em;
+    right: 5.5em;
+    display: flex;
+    position: absolute;
+    width: auto;
+    height: 6em;
+    background: white;
+    border: solid 0.5em;
+}
+.secret_letter_box_text_area {
+    width: 80%;
+    height: 20em;
+    text-wrap: normal;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    word-break: break-all;
+}
+.center_content {
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center
+}
+.eighty_percent_width{
+    width:80%;
+}
+.secret_box_wrapper{
+    display: contents;
+}
+.second_top_panel_button{
+    height:100%;
+    width:100%;
+
+}
+.full_width{
+    width:100%;
+}
+
+.self_center {
+    width: 100%;
+    left: 10%;
+    right: 10%;
+    align-self: center;
+    justify-self: center; 
+    text-align: center;
+}
+.title_text {
+    text-align: center;
+}
+.back_button * {
+    background: red;
+    color: azure;
+}
+.submit_button_wrapper {
+    display:flex;
+    width: 100%;
+    align-content:center;
+    justify-content:center;
+    margin-top:1em;
+    margin-bottom:1em;
+}
+.submit_button {
+    background: green;
+    width: 50%;
+    height: 3em;
+    font-size: 100%;
+    justify-self:center;
+}
+.add_person_button {
+    width: 30%;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+.employees_working_hour_select_row {
+    width: 100%;
+    border: gray 2px solid;
+}
+
+    .employees_working_hour_select_row * {
+        width: 80%;
+        margin: auto;
+    }
+.work_time_form {
+    width: 90%;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+    grid-template-columns: repeat(auto-fit,minmax(200px, 300px));
+    grid-gap:1em;
+}
+
+.delete_button {
+    background: red;
+}
+.edit_button {
+    background: yellow;
+}
+.gray_wrapper{
+    display:grid;
+    width:80%;
+    border:solid gray;
+    padding:1em;
+    justify-self:center;
+}
+.gray_wrapper *{
+    width:100%;
+}
+.grid_single_item {
+    grid-template-columns: 1fr;
+}
+.max_500px_width{
+    max-width:500px;
+}
+.grid_display{
+    display:grid;
+}
+.flex_display{
+    display:flex;
+}
+.children_90_percent_width *{
+    width:90%;
+}
+.red_background {
+    background: pink;
+}
+.blue_background {
+    background:lightblue;
+}

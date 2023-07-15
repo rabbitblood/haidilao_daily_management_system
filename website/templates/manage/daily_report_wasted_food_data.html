@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title%}
+
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/view_wasted_food.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['daily_report_wasted_food_data'][language]}}</h1>
+
+<div class="center_content">
+    <select id="main_category_filter" name="main_category_filter" onchange="refreshByMainCateFilter()">
+        {% for item in wasted_food_data["main_categories"] %}
+        <option value="{{item}}">{{item}}</option>
+        {% endfor %}
+    </select>
+</div>
+
+<div class="flex blue_background sticky_top">
+    <div>{{translate_data['name'][language]}}</div>
+    <div>{{translate_data['main_categories'][language]}}</div>
+    <div>{{translate_data['today_waste_count'][language]}}</div>
+</div>
+
+<form action="/manage/daily_report_wasted_food_data" method="post">
+    {% for food in wasted_food_data["foods"]%}
+    <div class="flex">
+        {% if daily_data.get("wasted_food_data") and daily_data['wasted_food_data'].get(food) %}
+        <div>{{wasted_food_data["foods"][food]["name"]}}</div>
+        <div class="main_categories">{{wasted_food_data["foods"][food]['main_categories']}}</div>
+        <input id="{{food}}" name="{{food}}" type="number" step="any" value="{{daily_data['wasted_food_data'][food]}}" placeholder="请输入今日边角料 kg/L...">
+        {% else %}
+        <div>{{wasted_food_data["foods"][food]["name"]}}</div>
+        <div class="main_categories">{{wasted_food_data["foods"][food]['main_categories']}}</div>
+        <input id="{{food}}" name="{{food}}" type="number" step="any" placeholder="请输入今日边角料 kg/L...">
+        {% endif %}
+    </div>
+    {% endfor %}
+    <div class="center_content">
+        <input type="submit" class="submit_button">
+    </div>
+</form>
+<script>
+    refreshByMainCateFilter()
+    function refreshByMainCateFilter(){
+        let main_filter = document.getElementById("main_category_filter");
+        let food_main_categories = document.getElementsByClassName("main_categories");
+        for (let i = 0; i < food_main_categories.length; i++) {
+            food_main_categories[i].parentElement.classList.remove("hide")
+          if(food_main_categories[i].innerHTML != main_filter.options[main_filter.selectedIndex].value){
+                food_main_categories[i].parentElement.classList.add("hide")
+          }
+        }
+    }
+</script>
+{% endblock %}

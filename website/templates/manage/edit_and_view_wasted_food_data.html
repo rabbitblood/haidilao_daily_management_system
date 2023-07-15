@@ -1,0 +1,327 @@
+{% extends "base.html" %}
+
+{% block title%}
+
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/view_wasted_food.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['view_wasted_food_data'][language]}}</h1>
+
+
+<div class="center_content">
+    <div class="edit_grid">
+        <div>
+            <button onclick="showAddFoodSection()">{{translate_data['add_food'][language]}}</button>
+            <button onclick="showAddSecondaryCategorySection()">{{translate_data['add_secondary_category'][language]}}
+            </button>
+            <button onclick="showAddMainCategorySection()">{{translate_data['add_main_category'][language]}}</button>
+        </div>
+        <div class="hide">
+            <button onclick="showChangeFoodSection()">{{translate_data['change_food'][language]}}</button>
+            <button onclick="showChangeSecondaryCategorySection()">{{translate_data['change_secondary_category'][language]}}
+            </button>
+            <button onclick="showChangeMainCategorySection()">{{translate_data['change_main_category'][language]}}</button>
+        </div>
+        <div>
+            <button onclick="showDeleteFoodSection()">{{translate_data['delete_food'][language]}}</button>
+            <button onclick="showDeleteSecondaryCategorySection()">
+                {{translate_data['delete_secondary_category'][language]}}
+            </button>
+            <button onclick="showDeleteMainCategorySection()">{{translate_data['delete_main_category'][language]}}
+            </button>
+        </div>
+    </div>
+
+</div>
+
+
+<form action="/manage/edit_and_view_wasted_food_data" method="get">
+    <input type="text" value="wasted_food_data" id="data_type" name="data_type" hidden>
+    <div>{{translate_data['start_date'][language]}}</div>
+    <input type="date" id="start_date" name="start_date" required>
+    <div>{{translate_data['end_date'][language]}}</div>
+    <input type="date" id="end_date" name="end_date" required>
+    <input type="submit">
+</form>
+
+<div>
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="add_food_form">
+    <div>{{translate_data['add_food'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <input id="change_name" name="change_name" type="text" required>
+    </div>
+    <div>
+        <div>{{translate_data['main_categories'][language]}}</div>
+        <select id="food_main_categories" name="food_main_categories">
+            {% for item in wasted_food_data["main_categories"]%}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <div>{{translate_data['secondary_categories'][language]}}</div>
+        <select id="food_secondary_categories" name="food_secondary_categories">
+            {% for item in wasted_food_data["secondary_categories"]%}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+        <input type="text" value="foods" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="add" name="method" id="method" readonly hidden>
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="add_secondary_category_form">
+    <div>{{translate_data['add_secondary_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <input id="change_name" name="change_name" type="text" required>
+    </div>
+    <div class="hide">
+        <input type="text" value="secondary_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="add" name="method" id="method" readonly hidden>
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="add_main_category_form">
+    <div>{{translate_data['add_main_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <input id="change_name" name="change_name" type="text" required>
+    </div>
+    <div class="hide">
+        <input type="text" value="main_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="add" name="method" id="method" readonly hidden>
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="delete_main_category_form">
+    <div>{{translate_data['delete_main_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" required>
+            {% for item in wasted_food_data["main_categories"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+
+        <input type="text" value="main_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="delete" name="method" id="method" readonly hidden>
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="delete_secondary_category_form">
+    <div>{{translate_data['delete_secondary_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" required>
+            {% for item in wasted_food_data["secondary_categories"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+        <input type="text" value="secondary_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="delete" name="method" id="method" readonly hidden>
+    </div>
+
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="delete_food_form">
+    <div>{{translate_data['delete_food'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" required>
+            {% for item in wasted_food_data["foods"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+        <input type="text" value="foods" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="delete" name="method" id="method" readonly hidden>
+
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="change_main_category_form">
+    <div>{{translate_data['change_main_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" required>
+            {% for item in wasted_food_data["main_categories"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+
+        <input type="text" value="main_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="change" name="method" id="method" readonly hidden>
+    </div>
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="change_secondary_category_form">
+    <div>{{translate_data['change_secondary_category'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" required>
+            {% for item in wasted_food_data["secondary_categories"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+        <input type="text" value="secondary_categories" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="change" name="method" id="method" readonly hidden>
+    </div>
+
+    <input type="submit">
+</form>
+
+<form action="/manage/edit_and_view_wasted_food_data/change_food_category" method="post"
+      class="add_category_form center_content grid hide" id="change_food_form">
+    <div>{{translate_data['change_food'][language]}}</div>
+    <div>
+        <div>{{translate_data['name'][language]}}</div>
+        <select id="change_name" name="change_name" onchange="updateChangeFoodInformation()" required>
+            {% for item in wasted_food_data["foods"] %}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+        <div>
+        <div>{{translate_data['main_categories'][language]}}</div>
+        <select id="food_main_categories" name="food_main_categories" class="food_main_categories">
+            {% for item in wasted_food_data["main_categories"]%}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div>
+        <div>{{translate_data['secondary_categories'][language]}}</div>
+        <select id="food_secondary_categories" name="food_secondary_categories">
+            {% for item in wasted_food_data["secondary_categories"]%}
+            <option value="{{item}}">{{item}}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="hide">
+        <input type="text" value="foods" name="change_type" id="change_type" readonly hidden>
+        <input type="text" value="change" name="method" id="method" readonly hidden>
+
+    </div>
+    <input type="submit">
+</form>
+</div>
+
+{% if data_range %}
+<form action="/manage/edit_and_view_wasted_food_data/download_report_as_csv" method="post">
+    <input value="{{data}}" name="data" id="data" hidden>
+    <input type="submit" value="{{translate_data['output_csv_report'][language]}}">
+</form>
+<div class="data_table_wrap">
+    <div class="data_row gray_background sticky_top">
+        <div>{{translate_data['foods'][language]}}</div>
+        <div>{{translate_data['main_categories'][language]}}</div>
+        <div>{{translate_data['secondary_categories'][language]}}</div>
+        {%for day in counted_dates%}
+        <div class="gray_background">{{day}}</div>
+        {%endfor%}
+    </div>
+
+    {% for food in wasted_food_data["foods"]%}
+    <div class="data_row">
+        <div class="sticky_left_1 blue_background">{{wasted_food_data["foods"][food]["name"]}}</div>
+        <div class="sticky_left_2 blue_background">{{wasted_food_data["foods"][food]["main_categories"]}}</div>
+        <div class="sticky_left_3 blue_background">{{wasted_food_data["foods"][food]["secondary_categories"]}}</div>
+        {%for day in counted_dates%}
+        {%if data_range.get(food) and data_range[food].get(day)%}
+        <div>{{data_range[food][day]}}</div>
+        {%else%}
+        <div>0</div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<script>
+    function hideAllSection(){
+        document.getElementById('add_food_form').classList.add('hide');
+        document.getElementById('add_main_category_form').classList.add('hide');
+        document.getElementById('add_secondary_category_form').classList.add('hide');
+        document.getElementById('delete_food_form').classList.add('hide');
+        document.getElementById('delete_main_category_form').classList.add('hide');
+        document.getElementById('delete_secondary_category_form').classList.add('hide');
+        document.getElementById('change_food_form').classList.add('hide');
+        document.getElementById('change_main_category_form').classList.add('hide');
+        document.getElementById('change_secondary_category_form').classList.add('hide');
+    }
+    function showAddFoodSection(){
+        hideAllSection();
+        document.getElementById('add_food_form').classList.remove('hide');
+    }
+    function showAddMainCategorySection(){
+        hideAllSection();
+        document.getElementById('add_main_category_form').classList.remove('hide');
+    }
+    function showAddSecondaryCategorySection(){
+        hideAllSection();
+        document.getElementById('add_secondary_category_form').classList.remove('hide');
+    }
+    function showDeleteFoodSection(){
+        hideAllSection();
+        document.getElementById('delete_food_form').classList.remove('hide');
+    }
+    function showDeleteMainCategorySection(){
+        hideAllSection();
+        document.getElementById('delete_main_category_form').classList.remove('hide');
+    }
+    function showDeleteSecondaryCategorySection(){
+        hideAllSection();
+        document.getElementById('delete_secondary_category_form').classList.remove('hide');
+    }
+    function showChangeFoodSection(){
+        hideAllSection();
+        document.getElementById('change_food_form').classList.remove('hide');
+    }
+    function showChangeMainCategorySection(){
+        hideAllSection();
+        document.getElementById('change_main_category_form').classList.remove('hide');
+    }
+    function showChangeSecondaryCategorySection(){
+        hideAllSection();
+        document.getElementById('change_secondary_category_form').classList.remove('hide');
+    }
+    function updateChangeFoodInformation(){
+        let foodForm = 0
+    }
+
+</script>
+{% endblock %}

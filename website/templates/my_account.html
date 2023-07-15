@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+<h1 class="title_text">{{translate_data['my_account'][language]}}</h1>
+<div class="center_content">
+    <div class="my_account_information_wrapper">
+        <div>-</div>
+        <div>{{translate_data['hi'][language]}} {{userinfo["prefer_name"]}}</div>
+        <div>{{translate_data['employee_number'][language]}}: {{userinfo["employee_number"]}}</div>
+        <div>{{translate_data['legal_name'][language]}}: {{userinfo["legal_name"]}}</div>
+        <div>-</div>
+        <div>{{translate_data['server_tips_ratio'][language]}}: {{userinfo["server_tips_ratio"]}}</div>
+        <div>{{translate_data['dish_prepare_tips_ratio'][language]}}: {{userinfo["dish_prepare_tips_ratio"]}}</div>
+        <div>{{translate_data['dish_runner_tips_ratio'][language]}}: {{userinfo["dish_runner_tips_ratio"]}}</div>
+        <div>{{translate_data['cleaner_tips_ratio'][language]}}: {{userinfo["cleaner_tips_ratio"]}}</div>
+        <div>{{translate_data['host_tips_ratios'][language]}}: {{userinfo["host_tips_ratios"]}}</div>
+        <div>{{translate_data['noodle_dance_tips_ratios'][language]}}: {{userinfo["noodle_dance_tips_ratios"]}}</div>
+        <div>{{translate_data['dish_prepare_work_count_ratio'][language]}}: {{userinfo["dish_prepare_work_count_ratio"]}}</div>
+        <div>{{translate_data['dish_runner_work_count_ratio'][language]}}: {{userinfo["dish_runner_work_count_ratio"]}}</div>
+        <div>{{translate_data['appetizer_work_count_ratio'][language]}}: {{userinfo["appetizer_work_count_ratio"]}}</div>
+    </div>
+</div>
+
+{% endblock %}

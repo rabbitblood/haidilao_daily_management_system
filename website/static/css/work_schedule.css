@@ -1,0 +1,51 @@
+.available_work_time_form {
+    width: 95%;
+    height: 10em;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(40px, 1fr));
+    grid-template-rows: 5em;
+    align-self:center;
+    justify-self:center;
+}
+    .available_work_time_form * {
+        width: 100%;
+        height: 70%;
+    }
+        .available_work_time_form * *{
+            display:flex;
+            border:solid gray 0.5px ;
+            justify-content:center;
+            align-content:center;
+            text-align:center;
+            align-items:center;
+        }
+.green_back{
+    background: lightgreen;
+}
+.yellow_back {
+    background: lightyellow;
+}
+.center{
+    width:100%;
+    display: flex;
+    align-items:center;
+    justify-content:center;
+    align-content:center;
+}
+
+.generated_schedule {
+    width: 95%;
+    display: grid;
+    align-self: center;
+    justify-self: center;
+}
+.schedule_row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(40px, 1fr));
+    border: 0.5px solid gray;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    align-items: center;
+}

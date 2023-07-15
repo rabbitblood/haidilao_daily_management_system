@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/employee_data_view_and_edit.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['employee_data_view_and_edit'][language]}}</h1>
+
+<div class="submit_button_wrapper">
+    <form action="/manage/employee_data_view_and_edit/edit_employee" method="get" class="full_width center_content">
+        <input hidden="hidden" value="add_new_employee" id="change_employee" name="change_employee">
+        <input type="submit" value="{{translate_data['add'][language]}}" class="submit_button"/>
+    </form>
+</div>
+<div>
+    <form action="/manage/employee_data_view_and_edit/get_employee_data_csv" method="post">
+        <input type="submit" value="{{translate_data['output_csv_report'][language]}}"/>
+    </form>
+</div>
+
+<div class="employee_info_row_wrapper">
+    <div class="employee_info_row header_row">
+        <div>{{translate_data['employee_number'][language]}}</div>
+        <div>{{translate_data['legal_name'][language]}}</div>
+        <div>{{translate_data['prefer_name'][language]}}</div>
+        <div>{{translate_data['server_tips_ratio'][language]}}</div>
+        <div>{{translate_data['dish_prepare_tips_ratio'][language]}}</div>
+        <div>{{translate_data['dish_runner_tips_ratio'][language]}}</div>
+        <div>{{translate_data['appetizer_tip_ratio'][language]}}</div>
+        <div>{{translate_data['cleaner_tips_ratio'][language]}}</div>
+        <div>{{translate_data['host_tips_ratios'][language]}}</div>
+        <div>{{translate_data['noodle_dance_tips_ratios'][language]}}</div>
+        <div>{{translate_data['dish_prepare_work_count_ratio'][language]}}</div>
+        <div>{{translate_data['dish_runner_work_count_ratio'][language]}}</div>
+        <div>{{translate_data['appetizer_work_count_ratio'][language]}}</div>
+        <div></div>
+    </div>
+
+    {%for employee in all_employee_info%}
+    {{employee["employee_number"]}}
+    <div class="employee_info_row">
+        <div>{{all_employee_info[employee]["employee_number"]}}</div>
+        <div>{{all_employee_info[employee]["legal_name"]}}</div>
+        <div>{{all_employee_info[employee]["prefer_name"]}}</div>
+        <div>{{all_employee_info[employee]["server_tips_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["dish_prepare_tips_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["dish_runner_tips_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["appetizer_tips_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["cleaner_tips_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["host_tips_ratios"]}}</div>
+        <div>{{all_employee_info[employee]["noodle_dance_tips_ratios"]}}</div>
+        <div>{{all_employee_info[employee]["dish_prepare_work_count_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["dish_runner_work_count_ratio"]}}</div>
+        <div>{{all_employee_info[employee]["appetizer_work_count_ratio"]}}</div>
+        <form action="/manage/employee_data_view_and_edit/edit_employee" method="get">
+            <input hidden="hidden" value="{{employee}}" id="change_employee" name="change_employee">
+            <button type="submit">{{translate_data['edit'][language]}}</button>
+        </form>
+    </div>
+    {%endfor%}
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/server.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage/manage_server_daily_work_info" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['add_group'][language]}}</h1>
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+<form id="post_form" action="{{post_url}}" method="POST" class="daily_server_groups">
+    {%if edit_group == "None"%}
+    <div class="server_group" id="server_group">
+        <h3>{{translate_data['recorder'][language]}}: </h3>
+        <input type="text" name="recorder" id="recorder" value="{{userinfo['legal_name']}}" readonly="readonly">
+        <div class="one_item_in_line">
+            <h1>{{translate_data['group_name'][language]}}</h1><input type="text" name="group_name" id="group_name" required>
+        </div>
+        <select class="shift" name="shift" id="shift">
+            <option value="morning">{{translate_data['morning_shift'][language]}}</option>
+            <option value="evening">{{translate_data['night_shift'][language]}}</option>
+        </select>
+        <h3>{{translate_data['group_member'][language]}}</h3>
+        <div class="two_items_in_line">
+            {%for i in range(0,15)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="team_member{{i}}" class="worked_employee_name" name="team_member{{i}}" autoComplete="on" list="suggestions" value='{{employee}}' onchange="refresh_input_value(this)">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="team_member{{i}}_work_hour" name="team_member{{i}}_work_hour">
+            {%endfor%}
+        </div>
+        <h3>{{translate_data['transfer_group_member'][language]}}</h3>
+        <div class="two_items_in_line">
+            {%for i in range(0,10)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="transfer_member{{i}}" class="worked_employee_name" name="transfer_member{{i}}" autoComplete="on" list="suggestions" value='{{employee}}' onchange="refresh_input_value(this)">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="transfer_member{{i}}_work_hour" name="transfer_member{{i}}_work_hour">
+            {%endfor%}
+        </div>
+        <h3>{{translate_data['money_count'][language]}}</h3>
+        <div class="one_item_in_line">
+            <h3>{{translate_data['start_money'][language]}}</h3><input type="number" step="any" name="start_money" id="start_money">
+        </div>
+        <div class="two_items_in_line">
+            <div>{{translate_data['cash'][language]}}</div><input type="number" step="any" name="cash" id="cash">
+            <div>{{translate_data['cash_tips'][language]}}</div><input type="number" step="any" name="cash_tips" id="cash_tips">
+            <div>{{translate_data['card_total'][language]}}</div><input type="number" step="any" name="card_total" id="card_total">
+            <div>{{translate_data['card_tips'][language]}}</div><input type="number" step="any" name="card_tips" id="card_tips">
+            <div>{{translate_data['alipay'][language]}}</div><input type="number" step="any" name="alipay" id="alipay">
+            <div>{{translate_data['alipay_tips'][language]}}</div><input type="number" step="any" name="alipay_tips" id="alipay_tips">
+            <div>{{translate_data['wechatpay'][language]}}</div><input type="number" step="any" name="wechatpay" id="wechatpay">
+            <div>{{translate_data['wechatpay_tips'][language]}}</div><input type="number" step="any" name="wechatpay_tips" id="wechatpay_tips">
+        </div>
+        <h3>{{translate_data['transfer_money_count'][language]}}</h3>
+        <div class="two_items_in_line">
+            <div>{{translate_data['cash'][language]}}</div><input type="number" step="any" name="transfer_cash" id="transfer_cash">
+            <div>{{translate_data['cash_tips'][language]}}</div><input type="number" step="any" name="transfer_cash_tips" id="transfer_cash_tips">
+            <div>{{translate_data['card_total'][language]}}</div><input type="number" step="any" name="transfer_card_total" id="transfer_card_total">
+            <div>{{translate_data['card_tips'][language]}}</div><input type="number" step="any" name="transfer_card_tips" id="transfer_card_tips" >
+            <div>{{translate_data['alipay'][language]}}</div><input type="number" step="any" name="transfer_alipay" id="transfer_alipay">
+            <div>{{translate_data['alipay_tips'][language]}}</div><input type="number" step="any" name="transfer_alipay_tips" id="transfer_alipay_tips">
+            <div>{{translate_data['wechatpay'][language]}}</div><input type="number" step="any" name="transfer_wechatpay" id="transfer_wechatpay">
+            <div>{{translate_data['wechatpay_tips'][language]}}</div><input type="number" step="any" name="transfer_wechatpay_tips" id="transfer_wechatpay_tips">
+        </div>
+            <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+            <button class="submit_button" type="submit"> {{translate_data['submit'][language]}}</button>
+    </div>
+    {%else%}
+    <div class="server_group" id="server_group">
+        <h3>{{translate_data['recorder'][language]}}: </h3>
+        <input type="text" name="recorder" id="recorder" value="{{userinfo['legal_name']}}" readonly="readonly">
+        <div class="one_item_in_line">
+            <h1>{{translate_data['group_name'][language]}}</h1><input type="text" name="group_name" id="group_name" value="{{daily_data[department_json_data_name][edit_group]['group_name']}}" readonly>
+        </div>
+        <select class="shift" name="shift" id="shift">
+            {% if daily_data[department_json_data_name]['shift'] == 'morning' %}
+            <option value="morning" selected>{{translate_data['morning_shift'][language]}}</option>
+            <option value="evening">{{translate_data['night_shift'][language]}}</option>
+            {% else %}
+            <option value="morning">{{translate_data['morning_shift'][language]}}</option>
+            <option value="evening" selected>{{translate_data['night_shift'][language]}}</option>
+            {% endif %}
+        </select>
+        <h3>{{translate_data['group_member'][language]}}</h3>
+        <div class="two_items_in_line">
+            {%for i in range(0,15)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="team_member{{i}}" class="worked_employee_name" name="team_member{{i}}" autoComplete="on" list="suggestions" value="{{daily_data[department_json_data_name][edit_group]['team_member'+str(i)]}}" onchange="refresh_input_value(this)">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="team_member{{i}}_work_hour" name="team_member{{i}}_work_hour" value="{{daily_data[department_json_data_name][edit_group]['team_member'+str(i)+'_work_hour']}}">
+            {%endfor%}
+        </div>
+        <h3>{{translate_data['transfer_group_member'][language]}}</h3>
+        <div class="two_items_in_line">
+            {%for i in range(0,10)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="transfer_member{{i}}" class="worked_employee_name" name="transfer_member{{i}}" autoComplete="on" list="suggestions" onchange="refresh_input_value(this)" value="{{daily_data[department_json_data_name][edit_group]['transfer_member'+str(i)]}}">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="transfer_member{{i}}_work_hour" name="transfer_member{{i}}_work_hour" value="{{daily_data[department_json_data_name][edit_group]['transfer_member'+str(i)+'_work_hour']}}">
+            {%endfor%}
+        </div>
+        <h3>{{translate_data['money_count'][language]}}</h3>
+        <div class="one_item_in_line">
+            <h3>{{translate_data['start_money'][language]}}</h3><input type="number" step="any" name="start_money" id="start_money" value="{{daily_data[department_json_data_name][edit_group]['start_money']}}">
+        </div>
+        <div class="two_items_in_line">
+            <div>{{translate_data['cash'][language]}}</div><input type="number" step="any" name="cash" id="cash" value="{{daily_data[department_json_data_name][edit_group]['cash']}}">
+            <div>{{translate_data['cash_tips'][language]}}</div><input type="number" step="any" name="cash_tips" id="cash_tips" value="{{daily_data[department_json_data_name][edit_group]['cash_tips']}}">
+            <div>{{translate_data['card_total'][language]}}</div><input type="number" step="any" name="card_total" id="card_total" value="{{daily_data[department_json_data_name][edit_group]['card_total']}}">
+            <div>{{translate_data['card_tips'][language]}}</div><input type="number" step="any" name="card_tips" id="card_tips" value="{{daily_data[department_json_data_name][edit_group]['card_tips']}}">
+            <div>{{translate_data['alipay'][language]}}</div><input type="number" step="any" name="alipay" id="alipay" value="{{daily_data[department_json_data_name][edit_group]['alipay']}}">
+            <div>{{translate_data['alipay_tips'][language]}}</div><input type="number" step="any" name="alipay_tips" id="alipay_tips" value="{{daily_data[department_json_data_name][edit_group]['alipay_tips']}}">
+            <div>{{translate_data['wechatpay'][language]}}</div><input type="number" step="any" name="wechatpay" id="wechatpay" value="{{daily_data[department_json_data_name][edit_group]['wechatpay']}}">
+            <div>{{translate_data['wechatpay_tips'][language]}}</div><input type="number" step="any" name="wechatpay_tips" id="wechatpay_tips" value="{{daily_data[department_json_data_name][edit_group]['wechatpay_tips']}}">
+        </div>
+        <h3>{{translate_data['transfer_money_count'][language]}}</h3>
+        <div class="two_items_in_line">
+            <div>{{translate_data['cash'][language]}}</div><input type="number" step="any" name="transfer_cash" id="transfer_cash" value="{{daily_data[department_json_data_name][edit_group]['transfer_cash']}}">
+            <div>{{translate_data['cash_tips'][language]}}</div><input type="number" step="any" name="transfer_cash_tips" id="transfer_cash_tips" value="{{daily_data[department_json_data_name][edit_group]['transfer_cash_tips']}}">
+            <div>{{translate_data['card_total'][language]}}</div><input type="number" step="any" name="transfer_card_total" id="transfer_card_total" value="{{daily_data[department_json_data_name][edit_group]['transfer_card_total']}}">
+            <div>{{translate_data['card_tips'][language]}}</div><input type="number" step="any" name="transfer_card_tips" id="transfer_card_tips" value="{{daily_data[department_json_data_name][edit_group]['transfer_card_tips']}}">
+            <div>{{translate_data['alipay'][language]}}</div><input type="number" step="any" name="transfer_alipay" id="transfer_alipay" value="{{daily_data[department_json_data_name][edit_group]['transfer_alipay']}}">
+            <div>{{translate_data['alipay_tips'][language]}}</div><input type="number" step="any" name="transfer_alipay_tips" id="transfer_alipay_tips" value="{{daily_data[department_json_data_name][edit_group]['transfer_alipay_tips']}}">
+            <div>{{translate_data['wechatpay'][language]}}</div><input type="number" step="any" name="transfer_wechatpay" id="transfer_wechatpay" value="{{daily_data[department_json_data_name][edit_group]['transfer_wechatpay']}}">
+            <div>{{translate_data['wechatpay_tips'][language]}}</div><input type="number" step="any" name="transfer_wechatpay_tips" id="transfer_wechatpay_tips" value="{{daily_data[department_json_data_name][edit_group]['transfer_wechatpay_tips']}}">
+        </div>
+        <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+        <button class="submit_button" type="submit"> {{translate_data['submit'][language]}}</button>
+    </div>
+    {%endif%}
+</form>
+
+
+
+<script type="text/javascript">
+
+    function refresh_input_value(self){
+        self.defaultValue = self.value
+    }
+</script>
+{% endblock %}

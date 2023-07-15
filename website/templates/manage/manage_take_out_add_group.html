@@ -1,0 +1,98 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/server.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage/manage_take_out_data" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['add_group'][language]}}</h1>
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+<form id="post_form" action="{{post_url}}" method="POST" class="daily_server_groups">
+    {%if edit_group == "None"%}
+    <div class="server_group" id="server_group">
+        <h3>{{translate_data['recorder'][language]}}: </h3>
+        <input type="text" name="recorder" id="recorder" value="{{userinfo['legal_name']}}" readonly="readonly">
+        <div class="one_item_in_line">
+            <h1>{{translate_data['section_and_shift'][language]}}</h1><input type="text" name="shift" id="shift" required>
+        </div>
+        <div class="two_items_in_line">
+            {%for i in range(0,10)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="team_member{{i}}" class="worked_employee_name" name="team_member{{i}}" autoComplete="on" list="suggestions" value='{{employee}}' onchange="refresh_input_value(this)">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="team_member{{i}}_work_hour" name="team_member{{i}}_work_hour">
+            {%endfor%}
+        </div>
+
+        <h3>{{translate_data['money_count'][language]}}</h3>
+        <div class="one_item_in_line">
+            <div>{{translate_data['fantuan_fee'][language]}}</div><input type="number" step="any" name="fantuan_fee" id="fantuan_fee">
+            <div>{{translate_data['fantuan_pos_amount'][language]}}</div><input type="number" step="any" name="fantuan_pos_amount" id="fantuan_pos_amount">
+            <div>{{translate_data['uber_pos_amount'][language]}}</div><input type="number" step="any" name="uber_pos_amount" id="uber_pos_amount">
+            <div>{{translate_data['uber_paid_amount'][language]}}</div><input type="number" step="any" name="uber_paid_amount" id="uber_paid_amount">
+            <div>{{translate_data['Snappy_amount'][language]}}</div><input type="number" step="any" name="Snappy_amount" id="Snappy_amount">
+            <div>{{translate_data['cash_takeout'][language]}}</div><input type="number" step="any" name="cash_takeout" id="cash_takeout">
+            <div>{{translate_data['card_take_out'][language]}}</div><input type="number" step="any" name="card_take_out" id="card_take_out">
+        </div>
+        <div class="one_item_in_line">
+            <h1>{{translate_data['tips'][language]}}</h1><input type="text" name="tips" id="tips">
+        </div>
+            <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+            <button class="submit_button" type="submit"> {{translate_data['submit'][language]}}</button>
+    </div>
+    {%else%}
+        <div class="server_group" id="server_group">
+        <h3>{{translate_data['recorder'][language]}}: </h3>
+        <input type="text" name="recorder" id="recorder" value="{{userinfo['legal_name']}}" readonly="readonly">
+        <div class="one_item_in_line">
+            <h1>{{translate_data['section_and_shift'][language]}}</h1><input type="text" name="shift" id="shift" value="{{daily_data[department_json_data_name][edit_group]['shift']}}">
+        </div>
+        <div class="two_items_in_line">
+            {%for i in range(0,10)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                {%endfor%}
+            </datalist>
+            <input id="team_member{{i}}" class="worked_employee_name" name="team_member{{i}}" autoComplete="on" list="suggestions" value="{{daily_data[department_json_data_name][edit_group]['team_member'+str(i)]}}" onchange="refresh_input_value(this)">
+            <div>{{translate_data['hours'][language]}}</div><input type="number" step="any" id="team_member{{i}}_work_hour" value="{{daily_data[department_json_data_name][edit_group]['team_member'+str(i)+'_work_hour']}}" name="team_member{{i}}_work_hour">
+            {%endfor%}
+        </div>
+
+        <h3>{{translate_data['money_count'][language]}}</h3>
+        <div class="one_item_in_line">
+            <div>{{translate_data['fantuan_fee'][language]}}</div><input type="number" step="any" name="fantuan_fee" id="fantuan_fee" value="{{daily_data[department_json_data_name][edit_group]['fantuan_fee']}}">
+            <div>{{translate_data['fantuan_pos_amount'][language]}}</div><input type="number" step="any" name="fantuan_pos_amount" id="fantuan_pos_amount" value="{{daily_data[department_json_data_name][edit_group]['fantuan_pos_amount']}}">
+            <div>{{translate_data['uber_pos_amount'][language]}}</div><input type="number" step="any" name="uber_pos_amount" id="uber_pos_amount" value="{{daily_data[department_json_data_name][edit_group]['uber_pos_amount']}}">
+            <div>{{translate_data['uber_paid_amount'][language]}}</div><input type="number" step="any" name="uber_paid_amount" id="uber_paid_amount" value="{{daily_data[department_json_data_name][edit_group]['uber_paid_amount']}}">
+            <div>{{translate_data['Snappy_amount'][language]}}</div><input type="number" step="any" name="Snappy_amount" id="Snappy_amount" value="{{daily_data[department_json_data_name][edit_group]['Snappy_amount']}}">
+            <div>{{translate_data['cash_takeout'][language]}}</div><input type="number" step="any" name="cash_takeout" id="cash_takeout" value="{{daily_data[department_json_data_name][edit_group]['cash_takeout']}}">
+            <div>{{translate_data['card_take_out'][language]}}</div><input type="number" step="any" name="card_take_out" id="card_take_out" value="{{daily_data[department_json_data_name][edit_group]['card_take_out']}}">
+        </div>
+        <div class="one_item_in_line">
+            <h1>{{translate_data['tips'][language]}}</h1><input type="text" name="tips" id="tips" value="{{daily_data[department_json_data_name][edit_group]['tips']}}">
+        </div>
+            <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+            <button class="submit_button" type="submit"> {{translate_data['submit'][language]}}</button>
+    </div>
+    {%endif%}
+</form>
+
+
+
+<script type="text/javascript">
+
+    function refresh_input_value(self){
+        self.defaultValue = self.value
+    }
+</script>
+{% endblock %}

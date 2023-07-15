@@ -1,0 +1,266 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['manage_managers_daily_work_info'][language]}}</h1>
+{% if userinfo['super_manager'] == True %}
+<form action="{{post_url}}" method="get" class="center_content">
+    <input type="date" id="view_and_edit_date" name="view_and_edit_date" onchange="this.form.submit()">
+</form>
+{% endif %}
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+
+<div>
+    <form action="/manage/manage_manager_and_other_daily_work_info" method="post">
+        <div class="center_content">
+            <div class="max_500px_width grid_display">
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['front_manager'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('front_manager')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="front_manager" class="worked_employee_name" name="front_manager" autoComplete="on"
+                           list="suggestions" value="{{daily_data[department_json_data_name]['front_manager']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="front_manager" class="worked_employee_name" name="front_manager" autoComplete="on"
+                           list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['duty_manager'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('duty_manager')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="duty_manager" class="worked_employee_name" name="duty_manager" autoComplete="on"
+                           list="suggestions" value="{{daily_data[department_json_data_name]['duty_manager']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="duty_manager" class="worked_employee_name" name="duty_manager" autoComplete="on"
+                           list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['kitchen_manager'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('kitchen_manager')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="kitchen_manager" class="worked_employee_name" name="kitchen_manager" autoComplete="on"
+                           list="suggestions"
+                           value="{{daily_data[department_json_data_name]['kitchen_manager']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="kitchen_manager" class="worked_employee_name" name="kitchen_manager" autoComplete="on"
+                           list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['face_changing_master'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('face_changing_master')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="face_changing_master" class="worked_employee_name" name="face_changing_master"
+                           autoComplete="on" list="suggestions"
+                           value="{{daily_data[department_json_data_name]['face_changing_master']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="face_changing_master" class="worked_employee_name" name="face_changing_master"
+                           autoComplete="on" list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['employee_meal_cooker'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('employee_meal_cooker')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="employee_meal_cooker" class="worked_employee_name" name="employee_meal_cooker"
+                           autoComplete="on" list="suggestions"
+                           value="{{daily_data[department_json_data_name]['employee_meal_cooker']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="employee_meal_cooker" class="worked_employee_name" name="employee_meal_cooker"
+                           autoComplete="on" list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['clerk'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('clerk')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="clerk" class="worked_employee_name" name="clerk" autoComplete="on" list="suggestions"
+                           value="{{daily_data[department_json_data_name]['clerk']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="clerk" class="worked_employee_name" name="clerk" autoComplete="on" list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['quality_inspector'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('quality_inspector')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="quality_inspector" class="worked_employee_name" name="quality_inspector"
+                           autoComplete="on" list="suggestions"
+                           value="{{daily_data[department_json_data_name]['quality_inspector']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="quality_inspector" class="worked_employee_name" name="quality_inspector"
+                           autoComplete="on" list="suggestions">
+                    {% endif %}
+                </div>
+                <div class="one_item_in_line">
+                    <h2>{{translate_data['expense_accountant'][language]}}</h2>
+                    {% if daily_data.get(department_json_data_name) and
+                    daily_data[department_json_data_name].get('expense_accountant')%}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="expense_accountant" class="worked_employee_name" name="expense_accountant"
+                           autoComplete="on" list="suggestions"
+                           value="{{daily_data[department_json_data_name]['expense_accountant']}}">
+                    {% else %}
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                        <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                            {{all_employee_info[employee]['employee_number']}}
+                            ({{all_employee_info[employee]['prefer_name']}})
+                            {{all_employee_info[employee]['legal_name']}}
+                        </option>
+                        {%endfor%}
+                    </datalist>
+                    <input id="expense_accountant" class="worked_employee_name" name="expense_accountant"
+                           autoComplete="on" list="suggestions">
+                    {% endif %}
+                </div>
+                <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+                <div class="submit_button_wrapper">
+                    <input type="submit" class="submit_button" value="{{translate_data['submit'][language]}}">
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

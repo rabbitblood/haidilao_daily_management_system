@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/view_data.css') }}">
+
+{% endblock %}
+
+{% block body %}
+
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+
+<h1 class="title_text">{{translate_data['view_data'][language]}}</h1>
+
+<form action="/manage/view_data" method="get">
+    <div>{{translate_data['data_type'][language]}}</div>
+    <select id ="data_type" name="data_type" required>
+        <option value="tips_data">{{translate_data['tips_data'][language]}}</option>
+        <option value="busser_work_count_data">{{translate_data['busser_work_count_data'][language]}}</option>
+        <option value="kitchen_work_count_data">{{translate_data['kitchen_work_count_data'][language]}}</option>
+        <option value="take_out_work_count_data">{{translate_data['take_out_work_count_data'][language]}}</option>
+    </select>
+    <div>{{translate_data['start_date'][language]}}</div>
+    <input type="date" id="start_date" name="start_date" required>
+    <div>{{translate_data['end_date'][language]}}</div>
+    <input type="date" id="end_date" name="end_date" required>
+    <input type="submit">
+</form>
+
+{% if data_range %}
+<div>{{data}}</div>
+<form action="/manage/view_data/download_report_as_csv" method="post">
+    <input value="{{data}}" name="data" id="data" hidden>
+    <input type="submit" value="{{translate_data['output_csv_report'][language]}}">
+</form>
+<div class="data_table_wrap">
+    <div class="employee_data_row sticky_top">
+        <div class="gray_background sticky_left_1 sticky_top">{{translate_data['employee_number'][language]}}</div>
+        <div class="gray_background sticky_left_2 sticky_top">{{translate_data['prefer_name'][language]}}</div>
+        <div class="gray_background sticky_left_3 sticky_top">{{translate_data['legal_name'][language]}}</div>
+        {%for day in counted_dates%}
+        <div class="gray_background">{{day}}</div>
+        {%endfor%}
+    </div>
+    {%for employee in data_range%}
+    {% if all_employee_info.get(employee)%}
+    <div class="employee_data_row">
+        <div class="sticky_left_1 blue_background">{{all_employee_info[employee]["employee_number"]}}</div>
+        <div class="sticky_left_2 blue_background">{{all_employee_info[employee]["prefer_name"]}}</div>
+        <div class="sticky_left_3 blue_background">{{all_employee_info[employee]["legal_name"]}}</div>
+        {%for day in counted_dates%}
+        {%if data_range[employee].get(day)%}
+        <div>{{data_range[employee][day]}}</div>
+        {%else%}
+        <div>0</div>
+        {%endif%}
+        {%endfor%}
+    </div>
+    {% endif %}
+    {%endfor%}
+
+</div>
+{%endif%}
+
+{% endblock %}

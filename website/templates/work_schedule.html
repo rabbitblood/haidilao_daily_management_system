@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/work_schedule.css') }}">
+{% endblock %}
+
+{% block body %}
+<h1 class="title_text">{{translate_data['Work_Schedule'][language]}}</h1>
+<div class="manage_department_grid">
+    {% if float(employee_data[userinfo["employee_number"]]["server_tips_ratio"]) > 0 %}
+    <form action="/work_schedule/edit_server_available_work_time" method="get">
+        <input type="submit" value="{{translate_data['edit_server_available_work_time'][language]}}"/>
+    </form>
+    {% endif %}
+
+    {% if userinfo['manage_managers'] == True %}
+    <form action="/work_schedule/generate_work_time_sheet" method="get">
+        <input type="submit" value="{{translate_data['generate_work_time_sheet'][language]}}"/>
+    </form>
+    {% endif %}
+</div>
+
+{% endblock %}

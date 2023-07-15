@@ -1,0 +1,99 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['manage_noodle_dance_daily_work_info'][language]}}</h1>
+{% if userinfo['super_manager'] == True %}
+        <form action="{{post_url}}" method="get" class="center_content">
+            <input type="date" id="view_and_edit_date" name="view_and_edit_date" onchange="this.form.submit()">
+        </form>
+{% endif %}
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+<div class="manage_appetizer_block">
+            <div class="center_content">
+    <div class="work_time_form" id="work_time_form">
+        {%if department_json_data_name in daily_data%}
+            {%for employee in daily_data[department_json_data_name]%}
+                <div class="employees_working_hour_select_row">
+                    <div>{{translate_data['employee'][language]}}</div>
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                            <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                        {%endfor%}
+                    </datalist>
+                    <input class="worked_employee_name" name="worked_employee_name" autoComplete="on" list="suggestions" value='{{employee}}' onchange="refresh_input_value(this)">
+                    <div>{{translate_data['hours'][language]}}</div>
+                    <input class="worked_hour" name="worked_hour" type="number" step="any" value={{daily_data[department_json_data_name][employee]}} onchange="refresh_input_value(this)">
+                    <input class="delete_button" type="button" onclick="delete_parent(this)" value="delete" onchange="refresh_input_value(this)">
+                </div>
+            {%endfor%}
+        {%else%}
+                <div class="employees_working_hour_select_row">
+                    <div>{{translate_data['employee'][language]}}</div>
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                            <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                        {%endfor%}
+                    </datalist>
+                    <input class="worked_employee_name" name="worked_employee_name" autoComplete="on" list="suggestions" onchange="refresh_input_value(this)">
+                    <div>{{translate_data['hours'][language]}}</div>
+                    <input class="worked_hour" name="worked_hour" type="number" step="any" onchange="refresh_input_value(this)">
+                    <input class="delete_button" type="button" onclick="delete_parent(this)" value="delete" onchange="refresh_input_value(this)">
+                </div>
+        {%endif%}
+    </div>
+                </div>
+    <div class="submit_button_wrapper">
+        <input class="add_person_button" type="button" onclick="add_person()" value="{{translate_data['add'][language]}}">
+    </div>
+    <div class="submit_button_wrapper">
+        <button class="submit_button" onclick="submit_form()" >{{translate_data['submit'][language]}}</button>
+    </div>
+</div>
+<form id="post_form" action="{{post_url}}" method="POST">
+    <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+
+    <input id="department_work_time_data" type="hidden" name="department_work_time_data" value="a">
+</form>
+<script type="text/javascript">
+    function add_person(){
+        document.getElementById("work_time_form").innerHTML += `
+                    <div class="employees_working_hour_select_row">
+                    <div>{{translate_data['employee'][language]}}</div>
+                    <datalist id="suggestions">
+                        {%for employee in all_employee_info%}
+                            <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                        {%endfor%}
+                    </datalist>
+                    <input class="worked_employee_name" name="worked_employee_name" autoComplete="on" list="suggestions" onchange="refresh_input_value(this)">
+                    <div>{{translate_data['hours'][language]}}</div>
+                    <input class="worked_hour" name="worked_hour" type="number" onchange="refresh_input_value(this)">
+                    <input class="delete_button" type="button" onclick="delete_parent(this)" value="delete" onchange="refresh_input_value(this)">
+                    </div>`;
+    }
+    function delete_parent(target){
+        target.parentElement.remove();
+    }
+    function submit_form(){
+        let department_work_times = {}
+        rows = document.getElementsByClassName('employees_working_hour_select_row');
+        for(var i =0; i<rows.length;i++){
+            employee_name = rows[i].getElementsByClassName('worked_employee_name')[0].value;
+            worked_hour = rows[i].getElementsByClassName('worked_hour')[0].value;
+            console.log(employee_name+"   "+worked_hour);
+            department_work_times[employee_name] = worked_hour
+        }
+        document.getElementById("department_work_time_data").value = JSON.stringify(department_work_times);
+        document.getElementById("post_form").submit();
+    }
+    function refresh_input_value(self){
+        self.defaultValue = self.value
+    }
+
+</script>
+{% endblock %}

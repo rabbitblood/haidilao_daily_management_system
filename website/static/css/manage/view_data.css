@@ -1,0 +1,47 @@
+.employee_data_row {
+    width: 100%;
+    display: grid;
+    grid-template-columns: unset;
+    grid-template-rows: unset;
+    align-items: center;
+    grid-auto-flow: column;
+    background-repeat: repeat;
+}
+    .employee_data_row * {
+        height:3em;
+        overflow-x: hidden;
+        text-overflow: ellipsis;
+        width: 120px;
+        border: solid gray;
+    }
+
+.sticky_top{
+    position:sticky;
+    top:0;
+    z-index:10;
+}
+.sticky_left_1 {
+    position: sticky;
+    left: 0;
+}
+.sticky_left_2 {
+    position: sticky;
+    left: 120px;
+}
+.sticky_left_3 {
+    position: sticky;
+    left: 240px;
+}
+.gray_background{
+    background: gray;
+}
+.blue_background{
+    background: lightblue;
+}
+.data_table_wrap {
+    display:inline-block;
+    width: auto;
+    overflow: visible;
+    padding-left: 10px;
+    margin-left: -10px;
+}

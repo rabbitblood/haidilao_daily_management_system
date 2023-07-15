@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+<h1 class="title_text">{{translate_data['login'][language]}}</h1>
+
+<form action = "/login" method="post" class="full_width">
+    <div class="full_width center_content self_center">
+        <div class="login_wrapper full_width">
+            <div>{{translate_data['employee_number'][language]}}</div><input type="text" name="user" id="user">
+            <div>{{translate_data['password'][language]}}</div><input type="text" name="password" id="password">
+        </div>
+    </div>
+
+    <div class="submit_button_wrapper">
+        <input type="submit" value="{{translate_data['login'][language]}}" class="submit_button">
+    </div>
+</form>
+{% endblock %}

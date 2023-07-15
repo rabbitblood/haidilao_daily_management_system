@@ -1,0 +1,30 @@
+.employee_info_row {
+    width: auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit,minmax(70px, 1fr));
+    align-items: center;
+    justify-items: center;
+    border: solid gray;
+    grid-auto-flow: column;
+}
+    .employee_info_row * {
+    }
+.header_row {
+    position: sticky;
+    background: gray;
+    top: 0;
+    z-index: 1;
+}
+.center_content{
+    justify-content:center;
+    justify-items:center;
+}
+@media only screen and (max-width: 1010px) {
+    .employee_info_row_wrapper{
+        overflow:scroll;
+    }
+    .employee_info_row {
+        width: 980px;
+        grid-template-columns: repeat(70px);
+    }
+}

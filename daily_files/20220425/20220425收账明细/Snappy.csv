@@ -1,0 +1,4 @@
+﻿createTime,orderId,customerName,telephone,deliveryAddress,externalDeliveryId,orderType,orderStatus,totalAmount,paymentType,orderSource,isDisputed
+2022-04-25T22:14:03-04:00,4933_2022_6587,Bowen Li,7787088355,,,PICKUP,PAID,85.9,CREDIT CARD,Web,No
+2022-04-25T19:44:24-04:00,4933_2022_6586,Lois Luo,5197290113,"6551 No 4 Rd, Richmond, V6Y 2T2",,PICKUP,PAID,74.7,CREDIT CARD,Web,No
+2022-04-25T18:58:27-04:00,4933_2022_6585,Jenny Li,2505162689,,,PICKUP,PAID,60.17,CREDIT CARD,Web,No

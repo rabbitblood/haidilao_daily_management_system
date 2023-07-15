@@ -1,0 +1,199 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/work_schedule.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/work_schedule" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['generate_work_time_sheet'][language]}}</h1>
+<div>
+    <h3>目前班表生成逻辑为：每日早班至少一个担当，晚班至少三个担当，其他的按照人数上限随意生成，但是会尽量平均每日担当大小徒弟数量,红色警告为超出可排班天数</h3>
+</div>
+<form action="{{posturl}}" method="post">
+    <div class="flex_display center_content">
+        <div>平日早班人数数量</div>
+        <input type="number" id="week_day_morning_max" name="week_day_morning_max" step="1" required>
+    </div>
+    <div class="flex_display center_content">
+        <div>平日晚班人数数量</div>
+        <input type="number" id="week_day_evening_max" name="week_day_evening_max" step="1" required>
+    </div>
+    <div class="flex_display center_content">
+        <div>周末早班人数数量</div>
+        <input type="number" id="weekend_morning_max" name="weekend_morning_max" step="1" required>
+    </div>
+    <div class="flex_display center_content">
+        <div>周末晚班人数数量</div>
+        <input type="number" id="weekend_evening_max" name="weekend_evening_max" step="1" required>
+    </div>
+    <div class="submit_button_wrapper">
+        <input class="submit_button" type="submit" value="{{translate_data['generate_work_time_sheet'][language]}}">
+    </div>
+</form>
+
+{% if work_schedule_data %}
+<div class="center">
+    <div class="generated_schedule">
+        <div class="schedule_row schedule_header">
+            <div>
+                -
+            </div>
+            <div>
+                -
+            </div>
+            <div>
+                {{translate_data['sunday'][language]}}
+            </div>
+            <div>
+                {{translate_data['monday'][language]}}
+            </div>
+            <div>
+                {{translate_data['tuesday'][language]}}
+            </div>
+            <div>
+                {{translate_data['wednesday'][language]}}
+            </div>
+            <div>
+                {{translate_data['thursday'][language]}}
+            </div>
+            <div>
+                {{translate_data['friday'][language]}}
+            </div>
+            <div>
+                {{translate_data['saturday'][language]}}
+            </div>
+        </div>
+        <div class="schedule_row morning_div blue_background">
+            <div>
+                {{translate_data['morning_shift'][language]}}
+            </div>
+        </div>
+        <div class="schedule_row evening_div red_background">
+            <div>
+                {{translate_data['night_shift'][language]}}
+            </div>
+        </div>
+        {% for employee in work_schedule_data['working_employee']%}
+        <div class="schedule_row">
+            <div class="employee_number">
+                {{employee_data[employee]['employee_number']}}
+            </div>
+            <div>
+                {{employee_data[employee]['prefer_name']}}
+            </div>
+
+            {% for day in work_schedule_data['generated_schedule']%}
+            <div>
+
+                <select class="employee_work_schedule_row_select" onchange="schedule_refresh();" id="employee_work_schedule_row_select">
+                    <option value="none"></option>
+                    {% for shift in work_schedule_data['generated_schedule'][day] %}
+                        {% if employee in work_schedule_data['employee_available_work_times'][shift] and 'morning' in shift%}
+
+                            {% if employee in work_schedule_data['generated_schedule'][day][shift] and 'morning' in shift %}
+                            <option value="morning_shift" selected>{{translate_data['morning_shift'][language]}}</option>
+                            {% else %}
+                            <option value="morning_shift">{{translate_data['morning_shift'][language]}}</option>
+                            {% endif %}
+                        {% endif %}
+
+                        {% if employee in work_schedule_data['employee_available_work_times'][shift] and 'evening' in shift %}
+                            {% if employee in work_schedule_data['generated_schedule'][day][shift] and 'evening' in shift %}
+                            <option value="evening_shift" selected>{{translate_data['night_shift'][language]}}</option>
+                            {% else %}
+                            <option value="evening_shift">{{translate_data['night_shift'][language]}}</option>
+                            {% endif %}
+                        {% endif %}
+                    {% endfor %}
+                </select>
+
+            </div>
+            {% endfor %}
+
+
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endif %}
+
+
+<script>
+    var employee_shift_display = {};
+    var employee_max_day_data = {};
+    {% for employee in employee_data %}
+    {% if employee_data[employee].get('can_work_days_in_a_week')%}
+    employee_max_day_data[{{employee}}] = {{employee_data[employee]['can_work_days_in_a_week']}};
+    {% endif %}
+    {% endfor %}
+
+    schedule_refresh();
+
+
+    function schedule_refresh(){
+        employee_shift_display = {};
+        employee_rows = document.getElementsByClassName('schedule_row');
+        Array.prototype.forEach.call(employee_rows, function(element) {
+            if(element.contains(element.querySelector('.employee_number'))){
+                employee_work_schedule_row_select = element.getElementsByClassName('employee_work_schedule_row_select');
+                employee_number = element.querySelector('.employee_number').innerText;
+                work_day = 0;
+                morning_day = 0;
+                evening_day = 0;
+                working_shift = "evening";
+                Array.prototype.forEach.call(employee_work_schedule_row_select, function(select_element) {
+                    if(select_element.value != 'none'){
+                        work_day++;
+                    }
+
+                    if(select_element.value == 'morning_shift'){
+                        morning_day++;
+                    }
+                    else if(select_element.value == 'evening_shift'){
+                        evening_day++;
+                    }
+                });
+                if(morning_day >= evening_day){
+                    working_shift = "morning";
+                };
+                console.log(employee_number+" "+morning_day+" "+evening_day+" "+working_shift)
+                if(work_day > employee_max_day_data[employee_number]){
+                    element.style.backgroundColor = "red";
+                }
+                else{
+                    element.style.backgroundColor = "white";
+                };
+                employee_shift_display[employee_number] = {
+                                                            "working_shift":working_shift,
+                                                            "outer_html":element
+                                                          };
+            };
+        });
+        rearrange_schedule();
+    }
+
+    function rearrange_schedule(){
+        schedule_header = document.querySelector('.schedule_header');
+        evening_div = document.querySelector('.evening_div');
+        morning_div = document.querySelector('.morning_div');
+        generated_schedule = document.querySelector('.generated_schedule');
+        generated_schedule.innerHTML = "";
+        generated_schedule.appendChild(schedule_header)
+        generated_schedule.appendChild(morning_div)
+        for (const [key, value] of Object.entries(employee_shift_display)) {
+            if(employee_shift_display[key]["working_shift"] == "morning"){
+                generated_schedule.appendChild(employee_shift_display[key]["outer_html"])
+            }
+        }
+        generated_schedule.appendChild(evening_div)
+        for (const [key, value] of Object.entries(employee_shift_display)) {
+            if(employee_shift_display[key]["working_shift"] == "evening"){
+                generated_schedule.appendChild(employee_shift_display[key]["outer_html"])
+            }
+        }
+    }
+</script>
+{% endblock %}

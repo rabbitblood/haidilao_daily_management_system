@@ -1,0 +1,14 @@
+.manage_department_grid {
+    display: grid;
+    width: 100%;
+    justify-content: center;
+    grid-template-columns: repeat(auto-fit,minmax(250px, 1fr));
+}
+.manage_department_grid *{
+    width: 100%;
+    height: auto;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    text-align:center;
+    min-height:3em;
+}

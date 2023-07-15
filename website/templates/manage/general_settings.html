@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['general_setting'][language]}}</h1>
+<form action="/manage/general_setting/daily_close_and_get_file" method="POST" class="submit_button_wrapper">
+    <button class="submit_button max_500px_width" type="submit">{{translate_data['daily_close_and_get_file'][language]}}</button>
+</form>
+<div class="submit_button_wrapper">
+    <form action="/manage/general_setting" method="post" class="gray_wrapper max_500px_width">
+        <h3 class="title_text">{{translate_data['edit_server_setting'][language]}}</h3>
+        {{translate_data['current_system_time'][language]}}(yyyymmdd)<input type="text" value="{{date}}" id="date"
+                                                                            name="date">
+
+        <div class="submit_button_wrapper">
+            <input class="submit_button" type="submit" value="{{translate_data['submit'][language]}}">
+        </div>
+    </form>
+</div>
+
+
+
+<script type="text/javascript">
+
+</script>
+{% endblock %}

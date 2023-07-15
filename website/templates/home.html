@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+<h1 class="title_text">{{translate_data['Welcome'][language]}}</h1>
+<div class="home_image_wrapper">
+    <img src="{{ url_for('static',filename = 'images/haidilao_doll_on_bed.jpg') }}" class="home_page_image">
+</div>
+{% endblock %}

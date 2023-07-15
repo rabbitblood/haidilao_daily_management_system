@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage.css') }}">
+{% endblock %}
+
+{% block body %}
+<h1 class="title_text">{{translate_data['manage'][language]}}</h1>
+<div class="manage_department_grid">
+    {% if userinfo['manage_appetizer'] == True %}
+    <form action="/manage/manage_appetizer_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_appetizer_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_cleaner'] == True %}
+    <form action="/manage/manage_cleaner_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_cleaner_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_dish_prepare'] == True %}
+    <form action="/manage/manage_dish_prepare_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_dish_prepare_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_dish_runner'] == True %}
+    <form action="/manage/manage_dish_runner_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_dish_runner_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_server'] == True %}
+    <form action="/manage/manage_server_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_server_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_noodle_dance'] == True %}
+    <form action="/manage/manage_noodle_dance_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_noodle_dance_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_host'] == True %}
+    <form action="/manage/manage_host_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_host_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_managers'] == True %}
+    <form action="/manage/manage_manager_and_other_daily_work_info" method="get">
+        <input type="submit" value="{{translate_data['manage_managers_daily_work_info'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_server'] == True %}
+    <form action="/manage/manage_take_out_data" method="get">
+        <input type="submit" value="{{translate_data['manage_take_out_data'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['super_manager'] == True %}
+    <form action="/manage/daily_close_infos" method="get">
+        <input type="submit" value="{{translate_data['daily_close_infos'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['super_manager'] == True %}
+    <form action="/manage/general_setting" method="get">
+        <input type="submit" value="{{translate_data['general_setting'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['super_manager'] == True %}
+    <form action="/manage/employee_data_view_and_edit" method="get">
+        <input type="submit" value="{{translate_data['employee_data_view_and_edit'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['super_manager'] == True %}
+    <form action="/manage/view_secret_letters" method="get">
+        <input type="submit" value="{{translate_data['view_secret_letters'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_managers'] == True %}
+    <form action="/manage/view_data" method="get">
+        <input type="submit" value="{{translate_data['view_data'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_managers'] == True %}
+    <form action="/manage/edit_and_view_wasted_food_data" method="get">
+        <input type="submit" value="{{translate_data['view_wasted_food_data'][language]}}"/>
+    </form>
+    {% endif %}
+    {% if userinfo['manage_managers'] == True or userinfo['manage_dish_prepare'] or userinfo['manage_appetizer']%}
+    <form action="/manage/daily_report_wasted_food_data" method="get">
+        <input type="submit" value="{{translate_data['daily_report_wasted_food_data'][language]}}"/>
+    </form>
+    {% endif %}
+
+</div>
+{% endblock %}

@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/server.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['manage_take_out_data'][language]}}</h1>
+{% if userinfo['super_manager'] == True %}
+<form action="{{post_url}}" method="get" class="center_content" id="change_date" name="change_date">
+    <input type="date" id="view_and_edit_date" name="view_and_edit_date" onchange="this.form.submit()">
+</form>
+{% endif %}
+
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+
+<div class="daily_server_groups">
+
+    {% if daily_data.get(department_json_data_name)%}
+    {% for item in daily_data[department_json_data_name] %}
+    <div class="server_group" id="server_group">
+        <h3>{{translate_data['recorder'][language]}}: </h3>
+        <div>{{userinfo['legal_name']}}</div>
+        <div class="one_item_in_line">
+            <h1>{{translate_data['section_and_shift'][language]}}</h1>
+            <h1>{{daily_data[department_json_data_name][item]['shift']}}</h1>
+        </div>
+        <div class="two_items_in_line">
+            {%for i in range(0,10)%}
+            <div>{{translate_data['team_member'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['team_member'+str(i)]}}</div>
+            <div>{{translate_data['hours'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['team_member'+str(i)+'_work_hour']}}</div>
+            {%endfor%}
+        </div>
+
+        <h3>{{translate_data['money_count'][language]}}</h3>
+        <div class="one_item_in_line">
+            <div>{{translate_data['fantuan_fee'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['fantuan_fee']}}</div>
+            <div>{{translate_data['fantuan_pos_amount'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['fantuan_pos_amount']}}</div>
+            <div>{{translate_data['uber_pos_amount'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['uber_pos_amount']}}</div>
+            <div>{{translate_data['uber_paid_amount'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['uber_paid_amount']}}</div>
+            <div>{{translate_data['Snappy_amount'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['Snappy_amount']}}</div>
+            <div>{{translate_data['cash_takeout'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['cash_takeout']}}</div>
+            <div>{{translate_data['card_take_out'][language]}}</div>
+            <div>{{daily_data[department_json_data_name][item]['card_take_out']}}</div>
+        </div>
+        <div class="one_item_in_line">
+            <h1>{{translate_data['tips'][language]}}</h1><div>{{daily_data[department_json_data_name][item]['tips']}}</div>
+        </div>
+        <div class="edit_and_delete_button_wrapper">
+            <form action="/manage/manage_take_out_data/add_group" method="get">
+                <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}"
+                       hidden>
+                <input type="text" hidden="hidden" value="{{item}}" id="edit_group" name="edit_group">
+                <input class="edit_button" type="submit" value="{{translate_data['edit'][language]}}"/>
+            </form>
+            <form action="/manage/manage_take_out_data" method="post">
+                <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}"
+                       hidden>
+                <input type="text" hidden="hidden" value="{{item}}" id="delete_group" name="delete_group">
+                <input class="delete_button" type="submit" value="{{translate_data['delete'][language]}}"/>
+            </form>
+        </div>
+    </div>
+
+    {% endfor %}
+    {% endif%}
+
+    <form action="/manage/manage_take_out_data/add_group" method="get">
+        <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}"
+               hidden>
+        <input class="add_group_button" type="submit" value="{{translate_data['add_group'][language]}}"/>
+    </form>
+</div>
+{% endblock %}

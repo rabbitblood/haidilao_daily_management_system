@@ -1,0 +1,593 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/employee_data_view_and_edit.css') }}">
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/work_schedule.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage/employee_data_view_and_edit" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+{% if change_employee %}
+<h1 class="title_text">
+    {{all_employee_info[change_employee]["prefer_name"]}}({{all_employee_info[change_employee]["legal_name"]}})</h1>
+{%else%}
+<h1 class="title_text">{{translate_data['add'][language]}}</h1>
+{%endif%}
+<div class="employee_info_row_wrapper">
+    {% if change_employee %}
+    <form action="/manage/employee_data_view_and_edit/edit_employee" method="post">
+        <div class="center_content grid_display">
+            <div class="center">
+                <div class="available_work_time_form">
+                    <div>
+                        <div>-</div>
+                        <div class="yellow_back">{{translate_data['morning_shift'][language]}}</div>
+                        <div class="yellow_back">{{translate_data['night_shift'][language]}}</div>
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['sunday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("sunday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['sunday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="sunday_can_work_morning" name="sunday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="sunday_can_work_morning" name="sunday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("sunday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['sunday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="sunday_can_work_night" name="sunday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="sunday_can_work_night" name="sunday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['monday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="monday_can_work_morning" name="monday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="monday_can_work_morning" name="monday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="monday_can_work_night" name="monday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="monday_can_work_night" name="monday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['tuesday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("tuesday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['tuesday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="tuesday_can_work_morning" name="tuesday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="tuesday_can_work_morning" name="tuesday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("tuesday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['tuesday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="tuesday_can_work_night" name="tuesday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="tuesday_can_work_night" name="tuesday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['wednesday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("wednesday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['wednesday_can_work_morning'] ==
+                        "on"
+                        %}
+                        <div><input type="checkbox" id="wednesday_can_work_morning" name="wednesday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="wednesday_can_work_morning" name="wednesday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("wednesday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['wednesday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="wednesday_can_work_night" name="wednesday_can_work_night"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="wednesday_can_work_night" name="wednesday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['thursday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("thursday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['thursday_can_work_morning'] ==
+                        "on"
+                        %}
+                        <div><input type="checkbox" id="thursday_can_work_morning" name="thursday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="thursday_can_work_morning" name="thursday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("thursday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['thursday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="thursday_can_work_night" name="thursday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="thursday_can_work_night" name="thursday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['friday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("friday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['friday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="friday_can_work_morning" name="friday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="friday_can_work_morning" name="friday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("friday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['friday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="friday_can_work_night" name="friday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="friday_can_work_night" name="friday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['saturday'][language]}}</div>
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("saturday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['saturday_can_work_morning'] ==
+                        "on"
+                        %}
+                        <div><input type="checkbox" id="saturday_can_work_morning" name="saturday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="saturday_can_work_morning" name="saturday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("saturday_can_work_night")
+                        and employee_data[change_employee]['available_working_time']['saturday_can_work_night'] == "on"
+                        %}
+                        <div><input type="checkbox" id="saturday_can_work_night" name="saturday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="saturday_can_work_night" name="saturday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="center">
+                <div>{{translate_data['can_work_days_in_a_week'][language]}}</div>
+                <input type="number" step="1" id="can_work_days_in_a_week" name="can_work_days_in_a_week"
+                       value="{{all_employee_info[change_employee]['can_work_days_in_a_week']}}">
+            </div>
+            <div class="one_item_in_line max_500px_width">
+                <div>{{translate_data['employee_number'][language]}}</div>
+                <input type="text" step="any" value='{{all_employee_info[change_employee]["employee_number"]}}'
+                       id="employee_number" name="employee_number" required>
+                <div>{{translate_data['legal_name'][language]}}</div>
+                <input type="text" value='{{all_employee_info[change_employee]["legal_name"]}}' id="legal_name"
+                       name="legal_name" required>
+                <div>{{translate_data['prefer_name'][language]}}</div>
+                <input type="text" value='{{all_employee_info[change_employee]["prefer_name"]}}' id="prefer_name"
+                       name="prefer_name" required>
+                <div>{{translate_data['server_tips_ratio'][language]}}</div>
+                <input type="number" step="any" value='{{all_employee_info[change_employee]["server_tips_ratio"]}}'
+                       id="server_tips_ratio" name="server_tips_ratio" required>
+                <div>{{translate_data['dish_prepare_tips_ratio'][language]}}</div>
+                <input type="number" step="any"
+                       value='{{all_employee_info[change_employee]["dish_prepare_tips_ratio"]}}'
+                       id="dish_prepare_tips_ratio" name="dish_prepare_tips_ratio" required>
+                <div>{{translate_data['dish_runner_tips_ratio'][language]}}</div>
+                <input type="number" step="any" value='{{all_employee_info[change_employee]["dish_runner_tips_ratio"]}}'
+                       id="dish_runner_tips_ratio" name="dish_runner_tips_ratio" required>
+                <div>{{translate_data['appetizer_tip_ratio'][language]}}</div>
+                <input type="number" step="any" value='{{all_employee_info[change_employee]["appetizer_tips_ratio"]}}'
+                       id="appetizer_tips_ratio" name="appetizer_tips_ratio" required>
+                <div>{{translate_data['cleaner_tips_ratio'][language]}}</div>
+                <input type="number" step="any" value='{{all_employee_info[change_employee]["cleaner_tips_ratio"]}}'
+                       id="cleaner_tips_ratio" name="cleaner_tips_ratio" required>
+                <div>{{translate_data['host_tips_ratios'][language]}}</div>
+                <input type="number" step="any" value='{{all_employee_info[change_employee]["host_tips_ratios"]}}'
+                       id="host_tips_ratios" name="host_tips_ratios" required>
+                <div>{{translate_data['noodle_dance_tips_ratios'][language]}}</div>
+                <input type="number" step="any"
+                       value='{{all_employee_info[change_employee]["noodle_dance_tips_ratios"]}}'
+                       id="noodle_dance_tips_ratios" name="noodle_dance_tips_ratios" required>
+                <div>{{translate_data['dish_prepare_work_count_ratio'][language]}}</div>
+                <input type="number" step="any"
+                       value='{{all_employee_info[change_employee]["dish_prepare_work_count_ratio"]}}'
+                       id="dish_prepare_work_count_ratio" name="dish_prepare_work_count_ratio" required>
+                <div>{{translate_data['dish_runner_work_count_ratio'][language]}}</div>
+                <input type="number" step="any"
+                       value='{{all_employee_info[change_employee]["dish_runner_work_count_ratio"]}}'
+                       id="dish_runner_work_count_ratio" name="dish_runner_work_count_ratio" required>
+                <div>{{translate_data['appetizer_work_count_ratio'][language]}}</div>
+                <input type="number" step="any"
+                       value='{{all_employee_info[change_employee]["appetizer_work_count_ratio"]}}'
+                       id="appetizer_work_count_ratio" name="appetizer_work_count_ratio" required>
+                <div>{{translate_data['main_department'][language]}}</div>
+                <select id="main_department" name="main_department">
+
+                    {% if all_employee_info[change_employee]["main_department"] == "other"%}
+                    <option value="other" selected>{{translate_data['other'][language]}}</option>
+                    {% else %}
+                    <option value="other">{{translate_data['other'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "server"%}
+                    <option value="server" selected>{{translate_data['server'][language]}}</option>
+                    {% else %}
+                    <option value="server">{{translate_data['server'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "dish_runner"%}
+                    <option value="dish_runner" selected>{{translate_data['dish_runner'][language]}}</option>
+                    {% else %}
+                    <option value="dish_runner">{{translate_data['dish_runner'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "host"%}
+                    <option value="host" selected>{{translate_data['host'][language]}}</option>
+                    {% else %}
+                    <option value="host">{{translate_data['host'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "cleaner"%}
+                    <option value="cleaner" selected>{{translate_data['cleaner'][language]}}</option>
+                    {% else %}
+                    <option value="cleaner">{{translate_data['cleaner'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "manage"%}
+                    <option value="manage" selected>{{translate_data['manage'][language]}}</option>
+                    {% else %}
+                    <option value="manage">{{translate_data['manage'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "dish_prepare"%}
+                    <option value="dish_prepare" selected>{{translate_data['dish_prepare'][language]}}</option>
+                    {% else %}
+                    <option value="dish_prepare">{{translate_data['dish_prepare'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "appetizer"%}
+                    <option value="appetizer" selected>{{translate_data['appetizer'][language]}}</option>
+                    {% else %}
+                    <option value="appetizer">{{translate_data['appetizer'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "dish_washer"%}
+                    <option value="dish_washer" selected>{{translate_data['dish_washer'][language]}}</option>
+                    {% else %}
+                    <option value="dish_washer">{{translate_data['dish_washer'][language]}}</option>
+                    {% endif %}
+
+                    {% if all_employee_info[change_employee]["main_department"] == "noodle_dance"%}
+                    <option value="noodle_dance" selected>{{translate_data['noodle_dance'][language]}}</option>
+                    {% else %}
+                    <option value="noodle_dance">{{translate_data['noodle_dance'][language]}}</option>
+                    {% endif %}
+                </select>
+                <input hidden="hidden" value="{{change_employee}}" id="change_employee" name="change_employee">
+                <div></div>
+                <button class="submit_button" type="submit">{{translate_data['submit'][language]}}</button>
+            </div>
+
+        </div>
+
+    </form>
+    {%else%}
+    <form action="/manage/employee_data_view_and_edit/edit_employee" method="post">
+        <div class="center_content grid_display">
+            <div class="center">
+                <div class="available_work_time_form">
+                    <div>
+                        <div>-</div>
+                        <div class="yellow_back">{{translate_data['morning_shift'][language]}}</div>
+                        <div class="yellow_back">{{translate_data['night_shift'][language]}}</div>
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['sunday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("sunday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['sunday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="sunday_can_work_morning" name="sunday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="sunday_can_work_morning" name="sunday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="sunday_can_work_night" name="sunday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="sunday_can_work_night" name="sunday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['monday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="monday_can_work_morning" name="monday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="monday_can_work_morning" name="monday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="monday_can_work_night" name="monday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="monday_can_work_night" name="monday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['tuesday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="tuesday_can_work_morning" name="tuesday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="tuesday_can_work_morning" name="tuesday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="tuesday_can_work_night" name="tuesday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="tuesday_can_work_night" name="tuesday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['wednesday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="wednesday_can_work_morning" name="wednesday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="wednesday_can_work_morning" name="wednesday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="wednesday_can_work_night" name="wednesday_can_work_night"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="wednesday_can_work_night" name="wednesday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['thursday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="thursday_can_work_morning" name="thursday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="thursday_can_work_morning" name="thursday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="thursday_can_work_night" name="thursday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="thursday_can_work_night" name="thursday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['friday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="friday_can_work_morning" name="friday_can_work_morning" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="friday_can_work_morning" name="friday_can_work_morning"></div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="friday_can_work_night" name="friday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="friday_can_work_night" name="friday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                    <div>
+                        <div class="green_back">{{translate_data['saturday'][language]}}</div>
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="saturday_can_work_morning" name="saturday_can_work_morning"
+                                    checked></div>
+                        {% else %}
+                        <div><input type="checkbox" id="saturday_can_work_morning" name="saturday_can_work_morning">
+                        </div>
+                        {% endif %}
+
+                        {%
+                        if employee_data.get("change_employee")
+                        and employee_data[change_employee].get("available_working_time")
+                        and employee_data[change_employee]['available_working_time'].get("monday_can_work_morning")
+                        and employee_data[change_employee]['available_working_time']['monday_can_work_morning'] == "on"
+                        %}
+                        <div><input type="checkbox" id="saturday_can_work_night" name="saturday_can_work_night" checked>
+                        </div>
+                        {% else %}
+                        <div><input type="checkbox" id="saturday_can_work_night" name="saturday_can_work_night"></div>
+                        {% endif %}
+                    </div>
+                </div>
+
+            </div>
+            <div class="center">
+                <div>{{translate_data['can_work_days_in_a_week'][language]}}</div>
+                <input type="number" step="1" id="can_work_days_in_a_week" name="can_work_days_in_a_week">
+            </div>
+            <div class="one_item_in_line max_500px_width">
+                <div>{{translate_data['employee_number'][language]}}</div>
+                <input type="text" step="any" id="employee_number" name="employee_number" required>
+                <div>{{translate_data['legal_name'][language]}}</div>
+                <input type="text" id="legal_name" name="legal_name" required>
+                <div>{{translate_data['prefer_name'][language]}}</div>
+                <input type="text" id="prefer_name" name="prefer_name" required>
+                <div>{{translate_data['server_tips_ratio'][language]}}</div>
+                <input type="number" step="any" id="server_tips_ratio" name="server_tips_ratio" value="0" required>
+                <div>{{translate_data['dish_prepare_tips_ratio'][language]}}</div>
+                <input type="number" step="any" id="dish_prepare_tips_ratio" name="dish_prepare_tips_ratio" value="0"
+                       required>
+                <div>{{translate_data['dish_runner_tips_ratio'][language]}}</div>
+                <input type="number" step="any" id="dish_runner_tips_ratio" name="dish_runner_tips_ratio" value="0"
+                       required>
+                <div>{{translate_data['appetizer_tip_ratio'][language]}}</div>
+                <input type="number" step="any" id="appetizer_tips_ratio" name="appetizer_tips_ratio" value="0"
+                       required>
+                <div>{{translate_data['cleaner_tips_ratio'][language]}}</div>
+                <input type="number" step="any" id="cleaner_tips_ratio" name="cleaner_tips_ratio" value="0" required>
+                <div>{{translate_data['host_tips_ratios'][language]}}</div>
+                <input type="number" step="any" id="host_tips_ratios" name="host_tips_ratios" value="0" required>
+                <div>{{translate_data['noodle_dance_tips_ratios'][language]}}</div>
+                <input type="number" id="noodle_dance_tips_ratios" name="noodle_dance_tips_ratios" value="0" required>
+                <div>{{translate_data['dish_prepare_work_count_ratio'][language]}}</div>
+                <input type="number" step="any" id="dish_prepare_work_count_ratio" name="dish_prepare_work_count_ratio"
+                       value="0" required>
+                <div>{{translate_data['dish_runner_work_count_ratio'][language]}}</div>
+                <input type="number" step="any" id="dish_runner_work_count_ratio" name="dish_runner_work_count_ratio"
+                       value="0" required>
+                <div>{{translate_data['appetizer_work_count_ratio'][language]}}</div>
+                <input type="number" step="any" id="appetizer_work_count_ratio" name="appetizer_work_count_ratio"
+                       value="0" required>
+                <div>{{translate_data['main_department'][language]}}</div>
+                <select id="main_department" name="main_department">
+                    <option value="other">{{translate_data['other'][language]}}</option>
+                    <option value="server">{{translate_data['server'][language]}}</option>
+                    <option value="dish_runner">{{translate_data['dish_runner'][language]}}</option>
+                    <option value="host">{{translate_data['host'][language]}}</option>
+                    <option value="cleaner">{{translate_data['cleaner'][language]}}</option>
+                    <option value="manage">{{translate_data['manage'][language]}}</option>
+                    <option value="dish_prepare">{{translate_data['dish_prepare'][language]}}</option>
+                    <option value="appetizer">{{translate_data['appetizer'][language]}}</option>
+                    <option value="dish_washer">{{translate_data['main_department'][language]}}</option>
+                    <option value="noodle_dance">{{translate_data['noodle_dance'][language]}}</option>
+                </select>
+                <div></div>
+                <button class="submit_button" type="submit">{{translate_data['submit'][language]}}</button>
+            </div>
+
+        </div>
+
+    </form>
+    {%endif%}
+    <div class="submit_button_wrapper">
+        <form action="/manage/employee_data_view_and_edit/delete_employee" method="post">
+            <input type="text" value="{{change_employee}}" hidden="hidden" id="delete_employee" name="delete_employee">
+            <button class="delete_button" type="submit">{{translate_data['delete'][language]}}</button>
+        </form>
+    </div>
+
+</div>
+
+
+{% endblock %}

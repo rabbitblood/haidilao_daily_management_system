@@ -1,0 +1,322 @@
+{% extends "base.html" %}
+
+{% block title%}
+{% endblock %}
+
+{% block body %}
+
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['daily_close_infos'][language]}}</h1>
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+{% if userinfo['super_manager'] == True %}
+        <form action="{{post_url}}" method="get" class="center_content">
+            <input type="date" id="view_and_edit_date" name="view_and_edit_date" onchange="this.form.submit()">
+        </form>
+{% endif %}
+<div class="submit_button_wrapper">
+    <div class="gray_wrapper center_content">
+        <h3 class="center_content">{{translate_data['table_count_information'][language]}}</h3>
+        {% if daily_data.get("general_data")%}
+        <div class="one_item_in_line max_500px_width">
+            <div>{{translate_data['morning_table_count'][language]}}</div>
+            {% if daily_data["general_data"].get('morning_table_count')%}
+            <input type="text" value="{{daily_data['general_data']['morning_table_count']}}" id="morning_table_count" name="morning_table_count">
+            {% else%}
+            <input type="text" id="morning_table_count" name="morning_table_count">
+            {% endif %}
+
+            <div>{{translate_data['evening_table_count'][language]}}</div>
+            {% if daily_data["general_data"].get('evening_table_count')%}
+            <input type="text" value="{{daily_data['general_data']['evening_table_count']}}" id="evening_table_count" name="evening_table_count">
+            {% else%}
+            <input type="text" id="evening_table_count" name="evening_table_count">
+            {% endif %}
+
+            <div>{{translate_data['take_out_count'][language]}}</div>
+            {% if daily_data["general_data"].get('take_out_count')%}
+            <input type="text" value="{{daily_data['general_data']['take_out_count']}}" id="take_out_count" name="take_out_count">
+            {% else%}
+            <input type="text" id="take_out_count" name="take_out_count">
+            {% endif %}
+
+            <div>{{translate_data['morning_busser_help_count'][language]}}</div>
+            {% if daily_data["general_data"].get('morning_busser_help_count')%}
+            <input type="text" value="{{daily_data['general_data']['morning_busser_help_count']}}" id="morning_busser_help_count" name="morning_busser_help_count">
+            {% else%}
+            <input type="text" id="morning_busser_help_count" name="morning_busser_help_count">
+            {% endif %}
+
+            <div>{{translate_data['evening_busser_help_count'][language]}}</div>
+            {% if daily_data["general_data"].get('evening_busser_help_count')%}
+            <input type="text" value="{{daily_data['general_data']['evening_busser_help_count']}}" id="evening_busser_help_count" name="evening_busser_help_count">
+            {% else%}
+            <input type="text" id="evening_busser_help_count" name="evening_busser_help_count">
+            {% endif %}
+        </div>
+        {%else%}
+        <div class="one_item_in_line max_500px_width">
+            <div>{{translate_data['morning_table_count'][language]}}</div>
+            <input type="text" value="" id="morning_table_count" name="morning_table_count">
+            <div>{{translate_data['evening_table_count'][language]}}</div>
+            <input type="text" value="" id="evening_table_count" name="evening_table_count">
+            <div>{{translate_data['take_out_count'][language]}}</div>
+            <input type="text" value="" id="take_out_count" name="take_out_count">
+            <div>{{translate_data['morning_busser_help_count'][language]}}</div>
+            <input type="text" value="" id="morning_busser_help_count" name="morning_busser_help_count">
+            <div>{{translate_data['evening_busser_help_count'][language]}}</div>
+            <input type="text" value="" id="evening_busser_help_count" name="evening_busser_help_count">
+        </div>
+        {%endif%}
+
+        <h3 class="center_content">{{translate_data['tips_information'][language]}}</h3>
+        <!--部门小费给出-->
+        <div class="gray_wrapper center_content">
+            <div class="gray_wrapper children_90_percent_width center_content tips_give_out_from_department" id="tips_give_out_from_department">
+                <h4 class="center_content">{{translate_data['tips_give_out_from_department'][language]}}</h4>
+                <button onclick="duplicate_tips_give_out_from_department_element()">{{translate_data['add'][language]}}</button>
+                {% if daily_data.get("general_data") and daily_data["general_data"].get("tips_give_out_from_department") %}
+                {% for item in daily_data["general_data"]["tips_give_out_from_department"]%}
+                <div class="flex_display gray_wrapper" id="tips_give_out_from_department_row" name="tips_give_out_from_department_row">
+                    <div>
+                        <div class="center_content">{{translate_data['employee'][language]}}</div>
+                        <datalist id="suggestions">
+                            {%for employee in all_employee_info%}
+                                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                            {%endfor%}
+                        </datalist>
+                    <input class="worked_employee_name employee_name" id="employee_name" name="employee_name" autoComplete="on" list="suggestions" value='{{daily_data["general_data"]["tips_give_out_from_department"][item]["employee_name"]}}' onchange="refresh_input_value(this)" placeholder="{{translate_data['please_enter_employee'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['deduct_department'][language]}}</div>
+                        <select class="department_to_deduct" id="department_to_deduct" name="department_to_deduct">
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "无" %}
+                            <option value="无" selected>{{translate_data['none'][language]}}</option>
+                            {% else %}
+                            <option value="无">{{translate_data['none'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "传配" %}
+                            <option value="传配" selected>{{translate_data['dish_runner'][language]}}</option>
+                            {% else %}
+                            <option value="传配">{{translate_data['dish_runner'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "小吃" %}
+                            <option value="小吃" selected>{{translate_data['appetizer'][language]}}</option>
+                            {% else %}
+                            <option value="小吃">{{translate_data['appetizer'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "上菜" %}
+                            <option value="上菜" selected>{{translate_data['dish_prepare'][language]}}</option>
+                            {% else %}
+                            <option value="上菜">{{translate_data['dish_prepare'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "门迎" %}
+                            <option value="门迎" selected>{{translate_data['host'][language]}}</option>
+                            {% else %}
+                            <option value="门迎">{{translate_data['host'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "保洁" %}
+                            <option value="保洁" selected>{{translate_data['cleaner'][language]}}</option>
+                            {% else %}
+                            <option value="保洁">{{translate_data['cleaner'][language]}}</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["deduct_from_department"] == "捞面" %}
+                            <option value="捞面" selected>{{translate_data['noodle_dance'][language]}}</option>
+                            {% else %}
+                            <option value="捞面">{{translate_data['noodle_dance'][language]}}</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['reason'][language]}}</div>
+                        <input class="reason" type="text" id="reason" name="reason" value='{{daily_data["general_data"]["tips_give_out_from_department"][item]["reason"]}}' placeholder="{{translate_data['please_enter_reason'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['amount'][language]}}</div>
+                        <input class="amount" type="number" step="any" id="amount" name="amount" value='{{daily_data["general_data"]["tips_give_out_from_department"][item]["amount"]}}' placeholder="{{translate_data['please_enter_amount'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['is_long_term'][language]}}</div>
+                        <select class="long_term" id="long_term" name="long_term">
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["long_term"] == "no" %}
+                            <option value="no" selected>no</option>
+                            {% else %}
+                            <option value="no">no</option>
+                            {% endif %}
+
+                            {% if daily_data["general_data"]["tips_give_out_from_department"][item]["long_term"] == "yes" %}
+                            <option value="yes" selected>yes</option>
+                            {% else %}
+                            <option value="yes">yes</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="flex_display gray_wrapper" id="tips_give_out_from_department_row" name="tips_give_out_from_department_row">
+                    <div>
+                        <div class="center_content">{{translate_data['employee'][language]}}</div>
+                        <datalist id="suggestions">
+                            {%for employee in all_employee_info%}
+                                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                            {%endfor%}
+                        </datalist>
+                    <input class="worked_employee_name employee_name" id="employee_name" name="employee_name" autoComplete="on" list="suggestions" onchange="refresh_input_value(this)" placeholder="{{translate_data['please_enter_employee'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['deduct_department'][language]}}</div>
+                        <select class="department_to_deduct" id="department_to_deduct" name="department_to_deduct">
+                            <option value="无">{{translate_data['none'][language]}}</option>
+                            <option value="传配">{{translate_data['dish_runner'][language]}}</option>
+                            <option value="小吃">{{translate_data['appetizer'][language]}}</option>
+                            <option value="上菜">{{translate_data['dish_prepare'][language]}}</option>
+                            <option value="门迎">{{translate_data['host'][language]}}</option>
+                            <option value="保洁">{{translate_data['cleaner'][language]}}</option>
+                            <option value="捞面">{{translate_data['noodle_dance'][language]}}</option>
+                        </select>
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['reason'][language]}}</div>
+                        <input class="reason" type="text" id="reason" name="reason" placeholder="{{translate_data['please_enter_reason'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['amount'][language]}}</div>
+                        <input class="amount" type="number" step="any" id="amount" name="amount" placeholder="{{translate_data['please_enter_amount'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['is_long_term'][language]}}</div>
+                        <select class="long_term" id="long_term" name="long_term">
+                            <option value="no">no</option>
+                            <option value="yes">yes</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <!--小费扣补-->
+            <div class="gray_wrapper children_90_percent_width center_content" id="tips_adjustment">
+                <h4 class="center_content">{{translate_data['tips_adjustment'][language]}}</h4>
+                <button onclick="duplicate_tips_adjustment_element()">{{translate_data['add'][language]}}</button>
+                {% if daily_data.get("general_data") and daily_data["general_data"].get("tips_adjustment") %}
+                {% for item in daily_data["general_data"]["tips_adjustment"]%}
+                <div class="flex_display gray_wrapper" id="tips_adjustment_row" name="tips_adjustment_row">
+                    <div>
+                        <div class="center_content">{{translate_data['employee'][language]}}</div>
+                        <datalist id="suggestions">
+                            {%for employee in all_employee_info%}
+                                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                            {%endfor%}
+                        </datalist>
+                    <input class="employee_name" name="employee_name" autoComplete="on" list="suggestions" value='{{daily_data["general_data"]["tips_adjustment"][item]["employee_name"]}}' onchange="refresh_input_value(this)" placeholder="{{translate_data['please_enter_employee'][language]}}。。。">
+                    </div>
+
+                    <div>
+                        <div class="center_content">{{translate_data['reason'][language]}}</div>
+                        <input class="reason" type="text" id="reason" name="reason" value='{{daily_data["general_data"]["tips_adjustment"][item]["reason"]}}' placeholder="{{translate_data['please_enter_reason'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['amount'][language]}}</div>
+                        <input class="amount" type="number" step="any" id="amount" name="amount" value='{{daily_data["general_data"]["tips_adjustment"][item]["amount"]}}' placeholder="{{translate_data['please_enter_amount'][language]}}。。。">
+                    </div>
+                </div>
+                {% endfor %}
+                {% endif %}
+                <div class="flex_display gray_wrapper" id="tips_adjustment_row" name="tips_adjustment_row">
+                    <div>
+                        <div class="center_content">{{translate_data['employee'][language]}}</div>
+                        <datalist id="suggestions">
+                            {%for employee in all_employee_info%}
+                                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>{{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}</option>
+                            {%endfor%}
+                        </datalist>
+                    <input class="employee_name" name="employee_name" autoComplete="on" list="suggestions" onchange="refresh_input_value(this)" placeholder="{{translate_data['please_enter_employee'][language]}}。。。">
+                    </div>
+
+                    <div>
+                        <div class="center_content">{{translate_data['reason'][language]}}</div>
+                        <input class="reason" type="text" id="reason" name="reason" placeholder="{{translate_data['please_enter_reason'][language]}}。。。">
+                    </div>
+                    <div>
+                        <div class="center_content">{{translate_data['amount'][language]}}</div>
+                        <input class="amount" type="number" step="any" id="amount" name="amount" placeholder="{{translate_data['please_enter_amount'][language]}}。。。">
+                    </div>
+                </div>
+            </div>
+
+        <div class="submit_button_wrapper">
+            <button class="submit_button" type="submit" onclick="submit_form()">{{translate_data['submit'][language]}}</button>
+        </div>
+    </div>
+    </div>
+</div>
+
+<form action="/manage/daily_close_infos" method="post" id="post_form" hidden>
+    <input type="text" id="current_view_and_edit_date" name="current_view_and_edit_date" value="{{date}}" hidden>
+    <input id="general_data" type="hidden" name="general_data" value="a">
+</form>
+
+
+<script type="text/javascript">
+    function duplicate_tips_give_out_from_department_element(){
+        let parent = document.querySelector('#tips_give_out_from_department');
+        let duplicate_element = document.querySelector('#tips_give_out_from_department_row');
+        clone = duplicate_element.cloneNode(true);
+        parent.appendChild(clone);
+    };
+
+    function duplicate_tips_adjustment_element(){
+        let parent = document.querySelector('#tips_adjustment');
+        let duplicate_element = document.querySelector('#tips_adjustment_row');
+        clone = duplicate_element.cloneNode(true);
+        parent.appendChild(clone);
+    };
+
+    function submit_form(){
+        let general_data = {};
+        general_data["tips_give_out_from_department"] = {}
+        general_data["tips_adjustment"] = {}
+        general_data["morning_table_count"] = document.getElementById("morning_table_count").value;
+        general_data["evening_table_count"] = document.getElementById("evening_table_count").value;
+        general_data["take_out_count"] = document.getElementById("take_out_count").value;
+        general_data["morning_busser_help_count"] = document.getElementById("morning_busser_help_count").value;
+        general_data["evening_busser_help_count"] = document.getElementById("evening_busser_help_count").value;
+
+        tips_give_out_from_department = document.getElementsByName('tips_give_out_from_department_row')
+
+        for(var i =0; i<tips_give_out_from_department.length;i++){
+            general_data["tips_give_out_from_department"][i] = {}
+            general_data["tips_give_out_from_department"][i]['employee_name'] = tips_give_out_from_department[i].getElementsByClassName('employee_name')[0].value;
+            general_data["tips_give_out_from_department"][i]['deduct_from_department'] = tips_give_out_from_department[i].getElementsByClassName('department_to_deduct')[0].value;
+            general_data["tips_give_out_from_department"][i]['reason'] = tips_give_out_from_department[i].getElementsByClassName('reason')[0].value;
+            general_data["tips_give_out_from_department"][i]['amount'] = tips_give_out_from_department[i].getElementsByClassName('amount')[0].value;
+            general_data["tips_give_out_from_department"][i]['long_term'] = tips_give_out_from_department[i].getElementsByClassName('long_term')[0].value;
+        }
+
+        tips_adjustment = document.getElementsByName('tips_adjustment_row')
+
+        for(var i =0; i<tips_adjustment.length;i++){
+            general_data["tips_adjustment"][i] = {}
+            general_data["tips_adjustment"][i]['employee_name'] = tips_adjustment[i].getElementsByClassName('employee_name')[0].value;
+            general_data["tips_adjustment"][i]['reason'] = tips_adjustment[i].getElementsByClassName('reason')[0].value;
+            general_data["tips_adjustment"][i]['amount'] = tips_adjustment[i].getElementsByClassName('amount')[0].value;
+        }
+
+        document.getElementById("general_data").value = JSON.stringify(general_data);
+        console.log(document.getElementById("general_data").value)
+
+        document.getElementById("post_form").submit();
+    };
+
+    function refresh_input_value(self){
+        self.defaultValue = self.value
+    };
+
+</script>
+{% endblock %}

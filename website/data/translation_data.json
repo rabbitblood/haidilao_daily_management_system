@@ -1,0 +1,678 @@
+{
+  "my_account": {
+    "en": "My Account" ,
+    "cn": "个人信息"
+  } ,
+  "appetizer": {
+    "en": "appetizer" ,
+    "cn": "小吃房"
+  } ,
+  "cleaner": {
+    "en": "cleaner" ,
+    "cn": "保洁组"
+  } ,
+  "dish_prepare": {
+    "en": "dish prepare" ,
+    "cn": "上菜房"
+  } ,
+  "dish_runner": {
+    "en": "dish runner" ,
+    "cn": "传配组"
+  } ,
+  "noodle_dance": {
+    "en": "noodle dance" ,
+    "cn": "捞面师"
+  } ,
+  "host": {
+    "en": "host" ,
+    "cn": "门迎组"
+  } ,
+  "server": {
+    "en": "server" ,
+    "cn": "服务组"
+  } ,
+  "manage": {
+    "en": "Manage" ,
+    "cn": "管理"
+  } ,
+  "dish_washer": {
+    "en": "dish washer" ,
+    "cn": "洗碗间"
+  },
+  "login": {
+    "en": "Login" ,
+    "cn": "登入"
+  } ,
+  "logout": {
+    "en": "Logout" ,
+    "cn": "登出"
+  } ,
+  "home": {
+    "en": "Home" ,
+    "cn": "主页"
+  },
+  "hi": {
+    "en": "Hi" ,
+    "cn": "您好"
+  },
+  "employee_number": {
+    "en": "Employee Number" ,
+    "cn": "员工工号"
+  },
+  "legal_name": {
+    "en": "Legal Name" ,
+    "cn": "法定姓名"
+  },
+  "prefer_name": {
+    "en": "Prefer Name" ,
+    "cn": "日常称谓"
+  },
+  "server_tips_ratio": {
+    "en": "Server Tips Ratio" ,
+    "cn": "服务组小费比例"
+  },
+  "dish_prepare_tips_ratio": {
+    "en": "Dish Prepare Tips Ratio" ,
+    "cn": "上菜房小费比例"
+  },
+  "dish_runner_tips_ratio": {
+    "en": "Dish Runner Tips Ratio" ,
+    "cn": "传配组小费比例"
+  },
+  "cleaner_tips_ratio": {
+    "en": "Cleaner Tips Ratio" ,
+    "cn": "保洁组小费比例"
+  },
+  "host_tips_ratios": {
+    "en": "Host Tips Ratio" ,
+    "cn": "门迎组小费比例"
+  },
+  "noodle_dance_tips_ratios": {
+    "en": "Noodle Dance Tips Ratio" ,
+    "cn": "捞面师小费比例"
+  },
+  "dish_prepare_work_count_ratio": {
+    "en": "Dish Prepare Work Count Ratio" ,
+    "cn": "上菜房计件比例"
+  },
+  "dish_runner_work_count_ratio": {
+    "en": "Dish Runner Work Count Ratio" ,
+    "cn": "传配组计件比例"
+  },
+  "appetizer_work_count_ratio": {
+    "en": "Appetizer Work Count Ratio" ,
+    "cn": "小吃房计件比例"
+  },
+  "appetizer_tip_ratio": {
+    "en": "Appetizer tip Ratio" ,
+    "cn": "小吃房小费比例"
+  },
+  "back": {
+    "en": "Back" ,
+    "cn": "返回"
+  },
+  "current_system_date": {
+    "en": "Current System Date" ,
+    "cn": "当前系统日期"
+  },
+  "submit": {
+    "en": "Submit" ,
+    "cn": "提交"
+  },
+  "employee": {
+    "en": "Employee" ,
+    "cn": "员工"
+  },
+  "hours": {
+    "en": "Hours" ,
+    "cn": "工时"
+  },
+  "date": {
+    "en": "date" ,
+    "cn": "日期"
+  },
+  "add": {
+    "en": "Add" ,
+    "cn": "添加"
+  },
+  "manage_managers_daily_work_info": {
+    "en": "Manage Managers daily work info" ,
+    "cn": "每日管理组工时"
+  },
+  "manage_appetizer_daily_work_info": {
+    "en": "Manage appetizer daily work info" ,
+    "cn": "每日小吃房工时"
+  },
+  "manage_cleaner_daily_work_info": {
+    "en": "Manage cleaner daily work info" ,
+    "cn": "每日保洁组工时"
+  },
+  "manage_dish_prepare_daily_work_info": {
+    "en": "Manage dish prepare daily work info" ,
+    "cn": "每日上菜房工时"
+  },
+  "manage_dish_runner_daily_work_info": {
+    "en": "Manage dish runner daily work info" ,
+    "cn": "每日传配组工时"
+  },
+  "manage_server_daily_work_info": {
+    "en": "Manage server daily work info" ,
+    "cn": "每日服务组清算小费"
+  },
+  "manage_noodle_dance_daily_work_info": {
+    "en": "Manage noodle dance daily work info" ,
+    "cn": "每日捞面师工时"
+  },
+  "manage_host_daily_work_info": {
+    "en": "Manage host daily work info" ,
+    "cn": "每日门迎组工时"
+  },
+  "morning_worked_hour": {
+    "en": "morning worked hour" ,
+    "cn": "早班工时"
+  },
+  "evening_worked_hour": {
+    "en": "evening worked hour" ,
+    "cn": "晚班工时"
+  },
+  "add_group": {
+    "en": "Add group" ,
+    "cn": "添加小组"
+  },
+  "section": {
+    "en": "Section" ,
+    "cn": "区域"
+  },
+  "start_money": {
+    "en": "start money" ,
+    "cn": "领用零钱"
+  },
+  "cash": {
+    "en": "cash" ,
+    "cn": "交款现金"
+  },
+  "cash_tips": {
+    "en": "cash tips" ,
+    "cn": "现金小费"
+  },
+  "card_total": {
+    "en": "card total" ,
+    "cn": "刷卡收款"
+  },
+  "card_tips": {
+    "en": "card tips" ,
+    "cn": "刷卡小费"
+  },
+  "alipay": {
+    "en": "alipay" ,
+    "cn": "支付宝收款"
+  },
+  "alipay_tips": {
+    "en": "alipay tips" ,
+    "cn": "支付宝小费"
+  },
+  "wechatpay": {
+    "en": "wechat pay" ,
+    "cn": "微信收款"
+  },
+  "wechatpay_tips": {
+    "en": "wechat pay tips" ,
+    "cn": "微信小费"
+  },
+  "team_member": {
+    "en": "team member" ,
+    "cn": "小组成员"
+  },
+  "section_and_shift": {
+    "en": "section and shift" ,
+    "cn": "区域/班次"
+  },
+  "shift": {
+    "en": "shift" ,
+    "cn": "班次"
+  },
+  "recorder": {
+    "en": "Recorder" ,
+    "cn": "记录员"
+  },
+  "form_not_complete": {
+    "en": "form not complete" ,
+    "cn": "表格未填写完成"
+  },
+  "edit": {
+    "en": "Edit" ,
+    "cn": "修改"
+  },
+  "delete": {
+    "en": "Delete" ,
+    "cn": "删除"
+  },
+  "front_manager": {
+    "en": "front manager" ,
+    "cn": "大堂经理"
+  },
+  "duty_manager": {
+    "en": "duty manager" ,
+    "cn": "值班经理"
+  },
+  "kitchen_manager": {
+    "en": "kitchen manager" ,
+    "cn": "后堂经理"
+  },
+  "face_changing_master": {
+    "en": "face changing master" ,
+    "cn": "变脸师"
+  },
+  "clerk": {
+    "en": "clerk" ,
+    "cn": "文员"
+  },
+  "quality_inspector": {
+    "en": "quality inspector" ,
+    "cn": "质检员"
+  },
+  "expense_accountant": {
+    "en": "expense accountant" ,
+    "cn": "报销员"
+  },
+  "employee_meal_cooker": {
+    "en": "employee meal cooker" ,
+    "cn": "员工餐师傅"
+  },
+  "general_setting": {
+    "en": "general setting" ,
+    "cn": "通用设置"
+  },
+  "current_system_time": {
+    "en": "current system time" ,
+    "cn": "当前系统时间"
+  },
+  "dish_prepare_window": {
+    "en": "Dish prepare window" ,
+    "cn": "上菜口"
+  },
+  "lamb_room": {
+    "en": "Lamb room" ,
+    "cn": "羊肉间"
+  },
+  "sea_food": {
+    "en": "Sea food" ,
+    "cn": "海鲜部"
+  },
+  "fungus_room": {
+    "en": "fungus room" ,
+    "cn": "豆菌部"
+  },
+  "rough_process": {
+    "en": "rough process" ,
+    "cn": "粗加工"
+  },
+  "submit_success": {
+    "en": "submit success" ,
+    "cn": "提交成功！"
+  },
+  "secret_letter_box": {
+    "en": "secret letter box" ,
+    "cn": "心里话信箱"
+  },
+  "group_member": {
+    "en": "group member" ,
+    "cn": "小组成员"
+  },
+  "transfer_group_member": {
+    "en": "transfer group member" ,
+    "cn": "交接小组成员"
+  },
+  "money_count": {
+    "en": "money_count" ,
+    "cn": "金额统计"
+  },
+  "other": {
+    "en": "other" ,
+    "cn": "其他&协助"
+  },
+  "daily_close_and_get_file": {
+    "en": "daily close and get file" ,
+    "cn": "日结并下载文件夹"
+  },
+  "employee_data_view_and_edit": {
+    "en": "employee data view and edit" ,
+    "cn": "查看及编辑员工信息"
+  },
+  "Welcome": {
+    "en": "Welcome" ,
+    "cn": "欢迎"
+  },
+  "password": {
+    "en": "password" ,
+    "cn": "密码"
+  },
+  "edit_server_setting": {
+    "en": "edit server setting" ,
+    "cn": "修改服务器设定"
+  },
+  "view_secret_letters": {
+    "en": "view secret letters" ,
+    "cn": "查看心里话信箱"
+  },
+  "content": {
+    "en": "content" ,
+    "cn": "内容"
+  },
+  "transfer_money_count": {
+    "en": "transfer money count" ,
+    "cn": "交接金额"
+  },
+  "daily_close_infos": {
+    "en": "daily close infos" ,
+    "cn": "每日日结信息"
+  },
+  "morning_table_count": {
+    "en": "morning table count" ,
+    "cn": "早班桌数"
+  },
+  "evening_table_count": {
+    "en": "evening table count" ,
+    "cn": "晚班桌数"
+  },
+  "take_out_count": {
+    "en": "take out count" ,
+    "cn": "外卖单数"
+  },
+  "morning_busser_help_count": {
+    "en": "morning busser help count" ,
+    "cn": "早班协助传配计件"
+  },
+  "evening_busser_help_count": {
+    "en": "evening busser help count" ,
+    "cn": "晚班协助传配计件"
+  },
+  "view_data": {
+    "en": "view data" ,
+    "cn": "查看数据"
+  },
+  "data_type": {
+    "en": "data type" ,
+    "cn": "数据类型"
+  },
+  "data_range": {
+    "en": "data range" ,
+    "cn": "数据范围"
+  },
+  "tips_data": {
+    "en": "tips data" ,
+    "cn": "小费数据"
+  },
+  "busser_work_count_data": {
+    "en": "busser work_count data" ,
+    "cn": "传配计件数据"
+  },
+  "kitchen_work_count_data": {
+    "en": "kitchen work count data" ,
+    "cn": "厨房计件数据"
+  },
+  "start_date": {
+    "en": "start date" ,
+    "cn": "开始时间"
+  },
+  "end_date": {
+    "en": "end date" ,
+    "cn": "结束时间"
+  },
+  "take_out_work_count_data": {
+    "en": "take out work count data" ,
+    "cn": "外卖计件数据"
+  },
+  "view_and_edit_date": {
+    "en": "view and edit date" ,
+    "cn": "查看及修改日期"
+  },
+  "wrong_format": {
+    "en": "wrong format" ,
+    "cn": "填写格式错误"
+  },
+  "output_csv_report": {
+    "en": "output csv report" ,
+    "cn": "导出csv报表"
+  },
+  "manage_take_out_data": {
+    "en": "manage take out data" ,
+    "cn": "管理外卖数据"
+  },
+  "fantuan_fee": {
+    "en": "fantuan fee" ,
+    "cn": "饭团手续费"
+  },
+  "fantuan_pos_amount": {
+    "en": "fantuan pos amount" ,
+    "cn": "饭团红火台金额"
+  },
+  "uber_pos_amount": {
+    "en": "uber pos amount" ,
+    "cn": "uber红火台金额"
+  },
+  "uber_paid_amount": {
+    "en": "uber paid amount" ,
+    "cn": "uber paid amount"
+  },
+  "Snappy_amount": {
+    "en": "Snappy amount" ,
+    "cn": "Snappy金额"
+  },
+  "cash_takeout": {
+    "en": "cash takeout" ,
+    "cn": "现金自提"
+  },
+  "card_take_out": {
+    "en": "card take out" ,
+    "cn": "刷卡自提"
+  },
+  "tips": {
+    "en": "tips" ,
+    "cn": "小费"
+  },
+  "view_wasted_food_data": {
+    "en": "view wasted food data" ,
+    "cn": "查看物料边角料数据"
+  },
+  "main_categories": {
+    "en": "main categories" ,
+    "cn": "大类"
+  },
+  "secondary_categories": {
+    "en": "secondary categories" ,
+    "cn": "小类"
+  },
+  "foods": {
+    "en": "foods" ,
+    "cn": "食品"
+  },
+  "add_food": {
+    "en": "add food" ,
+    "cn": "添加食品"
+  },
+  "add_main_category": {
+    "en": "add main category" ,
+    "cn": "添加大类"
+  },
+  "add_secondary_category": {
+    "en": "add secondary category" ,
+    "cn": "添加小类"
+  },
+  "delete_secondary_category": {
+    "en": "delete secondary category" ,
+    "cn": "删除小类"
+  },
+  "delete_main_category": {
+    "en": "delete main category" ,
+    "cn": "删除大类"
+  },
+  "delete_food": {
+    "en": "delete food" ,
+    "cn": "删除食品"
+  },
+  "name": {
+    "en": "name" ,
+    "cn": "名称"
+  },
+  "change_secondary_category": {
+    "en": "change secondary category" ,
+    "cn": "修改小类"
+  },
+  "change_main_category": {
+    "en": "change main category" ,
+    "cn": "修改大类"
+  },
+  "change_food": {
+    "en": "change food" ,
+    "cn": "修改食品"
+  },
+  "daily_report_wasted_food_data": {
+    "en": "daily report wasted food data" ,
+    "cn": "每日上报边角余料数据"
+  },
+  "today_waste_count": {
+    "en": "today waste count" ,
+    "cn": "今日边角余料数量"
+  },
+  "appetizer_work_hour_error": {
+    "en": "appetizer work hour error" ,
+    "cn": "小吃房工时出现错误"
+  },
+  "cleaner_work_hour_error": {
+    "en": "cleaner work hour error" ,
+    "cn": "保洁工时出现错误"
+  },
+  "dish_prepare_work_hour_error": {
+    "en": "dish prepare work hour error" ,
+    "cn": "上菜工时出现错误"
+  },
+  "dish_runner_hour_error": {
+    "en": "dish runner hour error" ,
+    "cn": "传配工时出现错误"
+  },
+  "general_data_error": {
+    "en": "general data error" ,
+    "cn": "日常数据出现错误"
+  },
+  "host_work_hour_error": {
+    "en": "host work hour error" ,
+    "cn": "门迎工时出现错误"
+  },
+  "manager_work_hour_error": {
+    "en": "manager work hour error" ,
+    "cn": "管理及特岗工时出现错误"
+  },
+  "table_count_information": {
+    "en": "table count information" ,
+    "cn": "桌数信息"
+  },
+  "tips_information": {
+    "en": "tips information" ,
+    "cn": "小费信息"
+  },
+  "tips_give_out_from_department": {
+    "en": "tips give out from department" ,
+    "cn": "部门小费给出"
+  },
+  "tips_adjustment": {
+    "en": "tips adjustment" ,
+    "cn": "小费扣补"
+  },
+  "reason": {
+    "en": "reason" ,
+    "cn": "原因"
+  },
+  "amount": {
+    "en": "amount" ,
+    "cn": "金额"
+  },
+  "please_enter_amount": {
+    "en": "please enter amount" ,
+    "cn": "请输入金额"
+  },
+  "please_enter_reason": {
+    "en": "please enter reason" ,
+    "cn": "请输入原因"
+  },
+  "deduct_department": {
+    "en": "deduct department" ,
+    "cn": "扣补部门"
+  },
+  "please_enter_employee": {
+    "en": "please enter employee" ,
+    "cn": "请输入员工"
+  },
+  "none": {
+    "en": "none" ,
+    "cn": "无"
+  },
+  "is_long_term": {
+    "en": "is it long term" ,
+    "cn": "是否长期"
+  },
+  "Work_Schedule": {
+    "en": "Work Schedule" ,
+    "cn": "排班"
+  },
+  "edit_server_available_work_time": {
+    "en": "edit server available work time" ,
+    "cn": "修改服务组可工作时间"
+  },
+  "sunday": {
+    "en": "Sun" ,
+    "cn": "星期日"
+  },
+  "monday": {
+    "en": "Mon" ,
+    "cn": "星期一"
+  },
+  "tuesday": {
+    "en": "Tue" ,
+    "cn": "星期二"
+  },
+  "wednesday": {
+    "en": "Wed" ,
+    "cn": "星期三"
+  },
+  "thursday": {
+    "en": "Thur" ,
+    "cn": "星期四"
+  },
+  "friday": {
+    "en": "Fri" ,
+    "cn": "星期五"
+  },
+  "saturday": {
+    "en": "Sat" ,
+    "cn": "星期六"
+  },
+  "morning_shift": {
+    "en": "morning shift" ,
+    "cn": "早班"
+  },
+  "night_shift": {
+    "en": "night shift" ,
+    "cn": "晚班"
+  },
+  "generate_work_time_sheet": {
+    "en": "generate work time sheet" ,
+    "cn": "生成班表"
+  },
+  "wrong format": {
+    "en": "wrong format" ,
+    "cn": "格式错误"
+  },
+  "group_name": {
+    "en": "group name" ,
+    "cn": "小组名称"
+  },
+  "can_work_days_in_a_week": {
+    "en": "can work days in a week" ,
+    "cn": "每周可工作天数"
+  },
+  "main_department": {
+    "en": "main department" ,
+    "cn": "主部门"
+  }
+}

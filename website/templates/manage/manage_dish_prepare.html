@@ -1,0 +1,833 @@
+{% extends "base.html" %}
+
+{% block title%}
+<link rel="stylesheet" href="{{ url_for('static',filename = 'css/manage/dish_prepare.css') }}">
+{% endblock %}
+
+{% block body %}
+<form action="/manage" method="get" class="back_button">
+    <input type="submit" value="{{translate_data['back'][language]}}"/>
+</form>
+<h1 class="title_text">{{translate_data['manage_dish_prepare_daily_work_info'][language]}}</h1>
+{% if userinfo['super_manager'] == True %}
+        <form action="{{post_url}}" method="get" class="center_content">
+            <input type="date" id="view_and_edit_date" name="view_and_edit_date" onchange="this.form.submit()">
+        </form>
+{% endif %}
+<div>{{translate_data['current_system_date'][language]}}: {{date}}</div>
+<div class="manage_appetizer_block center_content">
+    <form class="work_time_form grid_single_item max_500px_width " id="work_time_form" action="{{post_url}}" method="POST">
+
+        <h2>{{translate_data['dish_prepare_window'][language]}}</h2>
+        <div class="gray_wrapper">
+            <div class="dish_prepare_employee_row">
+                {% if daily_data.get(department_json_data_name) and
+                daily_data[department_json_data_name].get('dish_prepare_window1')%}
+                <div>{{translate_data['employee'][language]}}</div>
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window1" class="worked_employee_name" name="dish_prepare_window1"
+                       autoComplete="on" list="suggestions"
+                       value="{{daily_data[department_json_data_name]['dish_prepare_window1']}}">
+                <div>{{translate_data['hours'][language]}}</div> <input name="dish_prepare_window1_work_hour" type="number" step="any"
+                                                             value='{{daily_data[department_json_data_name]["dish_prepare_window1_work_hour"]}}'>
+                {% else %}
+                <div>{{translate_data['employee'][language]}}</div>
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window1" class="worked_employee_name" name="dish_prepare_window1"
+                       autoComplete="on" list="suggestions">
+                <div>{{translate_data['hours'][language]}}</div> <input name="dish_prepare_window1_work_hour" type="number" step="any">
+                {% endif %}
+            </div>
+
+            <div class="dish_prepare_employee_row">
+                {% if daily_data.get(department_json_data_name) and daily_data[department_json_data_name].get('dish_prepare_window2')%}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window2" class="worked_employee_name" name="dish_prepare_window2"
+                       autoComplete="on" list="suggestions"
+                       value="{{daily_data[department_json_data_name]['dish_prepare_window2']}}">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window2_work_hour" type="number" step="any"
+                                                             value='{{daily_data[department_json_data_name]["dish_prepare_window2_work_hour"]}}'>
+                {% else %}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window2" class="worked_employee_name" name="dish_prepare_window2"
+                       autoComplete="on" list="suggestions">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window2_work_hour" type="number" step="any">
+                {% endif %}
+            </div>
+
+            <div class="dish_prepare_employee_row">
+                {%if daily_data.get(department_json_data_name) and
+                daily_data[department_json_data_name].get('dish_prepare_window3')%}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window3" class="worked_employee_name" name="dish_prepare_window3"
+                       autoComplete="on" list="suggestions"
+                       value="{{daily_data[department_json_data_name]['dish_prepare_window3']}}">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window3_work_hour" type="number" step="any"
+                                                             value='{{daily_data[department_json_data_name]["dish_prepare_window3_work_hour"]}}'>
+                {% else %}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window3" class="worked_employee_name" name="dish_prepare_window3"
+                       autoComplete="on" list="suggestions">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window3_work_hour" type="number" step="any">
+                {% endif %}
+            </div>
+
+            <div class="dish_prepare_employee_row">
+                {% if daily_data.get(department_json_data_name) and
+                daily_data[department_json_data_name].get('dish_prepare_window4')%}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window4" class="worked_employee_name" name="dish_prepare_window4"
+                       autoComplete="on" list="suggestions"
+                       value="{{daily_data[department_json_data_name]['dish_prepare_window4']}}">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window4_work_hour" type="number" step="any"
+                                                             value='{{daily_data[department_json_data_name]["dish_prepare_window4_work_hour"]}}'>
+                {% else %}
+                {{translate_data['employee'][language]}}
+                <datalist id="suggestions">
+                    {%for employee in all_employee_info%}
+                    <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                        {{all_employee_info[employee]['employee_number']}}
+                        ({{all_employee_info[employee]['prefer_name']}}) {{all_employee_info[employee]['legal_name']}}
+                    </option>
+                    {%endfor%}
+                </datalist>
+                <input id="dish_prepare_window4" class="worked_employee_name" name="dish_prepare_window4"
+                       autoComplete="on" list="suggestions">
+                {{translate_data['hours'][language]}} <input name="dish_prepare_window4_work_hour" type="number" step="any">
+                {% endif %}
+            </div>
+        </div>
+
+
+        <h2>{{translate_data['lamb_room'][language]}}</h2>
+        <div class="gray_wrapper">
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('lamb_room1')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room1" class="worked_employee_name" name="lamb_room1" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['lamb_room1']}}">
+            {{translate_data['hours'][language]}} <input name="lamb_room1_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["lamb_room1_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room1" class="worked_employee_name" name="lamb_room1" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="lamb_room1_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('lamb_room2')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room2" class="worked_employee_name" name="lamb_room2" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['lamb_room2']}}">
+            {{translate_data['hours'][language]}} <input name="lamb_room2_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["lamb_room2_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room2" class="worked_employee_name" name="lamb_room2" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="lamb_room2_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('lamb_room3')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room3" class="worked_employee_name" name="lamb_room3" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['lamb_room3']}}">
+            {{translate_data['hours'][language]}} <input name="lamb_room3_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["lamb_room3_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room3" class="worked_employee_name" name="lamb_room3" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="lamb_room3_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('lamb_room4')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room4" class="worked_employee_name" name="lamb_room4" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['lamb_room4']}}">
+            {{translate_data['hours'][language]}} <input name="lamb_room4_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["lamb_room4_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="lamb_room4" class="worked_employee_name" name="lamb_room4" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="lamb_room4_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+        </div>
+
+        <h2>{{translate_data['sea_food'][language]}}</h2>
+
+        <div class="gray_wrapper">
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('sea_food1')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food1" class="worked_employee_name" name="sea_food1" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['sea_food1']}}">
+            {{translate_data['hours'][language]}} <input name="sea_food1_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["sea_food1_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food1" class="worked_employee_name" name="sea_food1" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="sea_food1_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('sea_food2')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food2" class="worked_employee_name" name="sea_food2" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['sea_food2']}}">
+            {{translate_data['hours'][language]}} <input name="sea_food2_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["sea_food2_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food2" class="worked_employee_name" name="sea_food2" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="sea_food2_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('sea_food3')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food3" class="worked_employee_name" name="sea_food3" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['sea_food3']}}">
+            {{translate_data['hours'][language]}} <input name="sea_food3_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["sea_food3_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food3" class="worked_employee_name" name="sea_food3" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="sea_food3_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('sea_food4')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food4" class="worked_employee_name" name="sea_food4" autoComplete="on" list="suggestions"
+                   value="{{daily_data[department_json_data_name]['sea_food4']}}">
+            {{translate_data['hours'][language]}} <input name="sea_food4_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["sea_food4_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="sea_food4" class="worked_employee_name" name="sea_food4" autoComplete="on" list="suggestions">
+            {{translate_data['hours'][language]}} <input name="sea_food4_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+        </div>
+
+        <h2>{{translate_data['fungus_room'][language]}}</h2>
+        <div class="gray_wrapper">
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('fungus_room1')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room1" class="worked_employee_name" name="fungus_room1" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['fungus_room1']}}">
+            {{translate_data['hours'][language]}} <input name="fungus_room1_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["fungus_room1_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room1" class="worked_employee_name" name="fungus_room1" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="fungus_room1_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('fungus_room2')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room2" class="worked_employee_name" name="fungus_room2" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['fungus_room2']}}">
+            {{translate_data['hours'][language]}} <input name="fungus_room2_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["fungus_room2_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room2" class="worked_employee_name" name="fungus_room2" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="fungus_room2_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('fungus_room3')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room3" class="worked_employee_name" name="fungus_room3" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['fungus_room3']}}">
+            {{translate_data['hours'][language]}} <input name="fungus_room3_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["fungus_room3_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room3" class="worked_employee_name" name="fungus_room3" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="fungus_room3_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('fungus_room4')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room4" class="worked_employee_name" name="fungus_room4" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['fungus_room4']}}">
+            {{translate_data['hours'][language]}} <input name="fungus_room4_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["fungus_room4_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="fungus_room4" class="worked_employee_name" name="fungus_room4" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="fungus_room4_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+        </div>
+
+        <h2>{{translate_data['rough_process'][language]}}</h2>
+
+        <div class="gray_wrapper">
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('rough_process1')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process1" class="worked_employee_name" name="rough_process1" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['rough_process1']}}">
+            {{translate_data['hours'][language]}} <input name="rough_process1_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["rough_process1_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process1" class="worked_employee_name" name="rough_process1" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="rough_process1_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('rough_process2')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process2" class="worked_employee_name" name="rough_process2" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['rough_process2']}}">
+            {{translate_data['hours'][language]}} <input name="rough_process2_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["rough_process2_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process2" class="worked_employee_name" name="rough_process2" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="rough_process2_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('rough_process3')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process3" class="worked_employee_name" name="rough_process3" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['rough_process3']}}">
+            {{translate_data['hours'][language]}} <input name="rough_process3_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["rough_process3_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process3" class="worked_employee_name" name="rough_process3" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="rough_process3_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('rough_process4')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process4" class="worked_employee_name" name="rough_process4" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['rough_process4']}}">
+            {{translate_data['hours'][language]}} <input name="rough_process4_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["rough_process4_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="rough_process4" class="worked_employee_name" name="rough_process4" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="rough_process4_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+        </div>
+
+        <h2>{{translate_data['other'][language]}}</h2>
+
+        <div class="gray_wrapper">
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('other1')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other1" class="worked_employee_name" name="other1" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['other1']}}">
+            {{translate_data['hours'][language]}} <input name="other1_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["other1_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other1" class="worked_employee_name" name="other1" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="other1_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('other2')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other2" class="worked_employee_name" name="other2" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['other2']}}">
+            {{translate_data['hours'][language]}} <input name="other2_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["other2_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other2" class="worked_employee_name" name="other2" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="other2_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('other3')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other3" class="worked_employee_name" name="other3" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['other3']}}">
+            {{translate_data['hours'][language]}} <input name="other3_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["other3_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other3" class="worked_employee_name" name="other3" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="other3_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+
+        <div class="dish_prepare_employee_row">
+            {% if daily_data.get(department_json_data_name) and
+            daily_data[department_json_data_name].get('other4')%}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other4" class="worked_employee_name" name="other4" autoComplete="on"
+                   list="suggestions" value="{{daily_data[department_json_data_name]['other4']}}">
+            {{translate_data['hours'][language]}} <input name="other4_work_hour" type="number" step="any"
+                                                         value='{{daily_data[department_json_data_name]["other4_work_hour"]}}'>
+            {% else %}
+            {{translate_data['employee'][language]}}
+            <datalist id="suggestions">
+                {%for employee in all_employee_info%}
+                <option class="worked_employee" name={{all_employee_info[employee]['employee_number']}}>
+                    {{all_employee_info[employee]['employee_number']}} ({{all_employee_info[employee]['prefer_name']}})
+                    {{all_employee_info[employee]['legal_name']}}
+                </option>
+                {%endfor%}
+            </datalist>
+            <input id="other4" class="worked_employee_name" name="other4" autoComplete="on"
+                   list="suggestions">
+            {{translate_data['hours'][language]}} <input name="other4_work_hour" type="number" step="any">
+            {% endif %}
+        </div>
+        </div>
+
+        <div class="submit_button_wrapper">
+            <input class="submit_button" type="submit" value="{{translate_data['submit'][language]}}">
+        </div>
+    </form>
+</div>
+<script type="text/javascript">
+    function delete_parent(target){
+        target.parentElement.remove();
+    }
+    function submit_form(){
+        let department_work_times = {}
+        rows = document.getElementsByClassName('employees_working_hour_select_row');
+        for(var i =0; i<rows.length;i++){
+            employee_name = rows[i].getElementsByClassName('worked_employee_name')[0].value;
+            worked_hour = rows[i].getElementsByClassName('worked_hour')[0].value;
+            console.log(employee_name+"   "+worked_hour);
+            department_work_times[employee_name] = worked_hour
+        }
+        document.getElementById("department_work_time_data").value = JSON.stringify(department_work_times);
+        document.getElementById("post_form").submit();
+    }
+    function refresh_input_value(self){
+        self.defaultValue = self.value
+    }
+
+
+</script>
+{% endblock %}

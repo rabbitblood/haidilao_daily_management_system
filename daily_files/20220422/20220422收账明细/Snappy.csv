@@ -1,0 +1,2 @@
+﻿createTime,orderId,customerName,telephone,deliveryAddress,externalDeliveryId,orderType,orderStatus,totalAmount,paymentType,orderSource,isDisputed
+2022-04-23T16:06:49-04:00,4933_2022_6579,Lia Liu,7789666111,,,PICKUP,COMPLETED,49.43,WECHAT,Web,No
